@@ -1,0 +1,23 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ gettext('Error %(error_code)s', error_code=c.code[0]) }}{% endblock %}
+
+{% block primary %}
+<div class="col-md-8 col-md-offset-2">
+  <article class="module">
+    <div class="module-content">
+      {{ c.content}}
+    </div>
+  </article>
+</div>
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block flash %}
+{# eat the flash messages caused by the 404 #}
+{% set flash_messages = h.flash.pop_messages() %}
+{% endblock %}
+
+{% block secondary %}{% endblock %}

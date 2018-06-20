@@ -1,0 +1,44 @@
+<a class="btn btn-lg btn-success btn-scroll-top"><span class="fa fa-caret-up"></span></a>
+<footer class="site-footer">
+  <div class="container">
+    {% block footer_content %}
+    <div class="row">
+      <div class="col-md-3 col-md-offset-2">
+        <a href="http://energinet.dk/" target="blank"><img class="footer-logo" src="/base/images/energinet-logo.svg" width="160" height="40" alt="Energinet logo"></a>
+        <p><small>&copy; <a href="http://energinet.dk/" target="blank">{{_('Energinet.dk')}}</a></small></p>
+      </div>
+      <div class="col-md-3 footer-links">
+        {% block footer_nav %}
+        <h4>{{ _('Data Guide')}}</h4>
+        <ul class="list-footer">
+          {% block dataguide_footer %}
+            {% snippet 'home/snippets/group_item_footer.html' %}
+          {% endblock %}
+        </ul>
+        {% endblock %}
+      </div>
+      <div class="col-md-2 attribution">
+        <ul class="list-footer-no-bullets">
+          {% block footer_attribution %}
+
+          <li><strong>{% trans %}Powered by{%endtrans %}</strong> <a class="hide-text ckan-footer-logo" target="blank" href="http://ckan.org">{{_('CKAN')}}</a></li>
+
+          <li>
+            <a href="http://www.opendefinition.org/okd/" target="blank"><img src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}"></a>
+          </li>
+          {% endblock %}
+        </ul>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+
+  {% block footer_debug %} {% if g.debug %} {% include 'snippets/debug.html' %} {% endif %} {% endblock %}
+</footer>
+
+<ul class="cookie-notice list-inline hidden">
+    {% set cookie_notice =  h.config_option_show('ckan.cookie_notice_content', request.environ.CKAN_LANG) or _('We use cookies to enhance the user experience.') %}
+  <li>{{ h.render_markdown(cookie_notice, allow_html=True) }}</li>
+  <li><button class="btn btn-success btn-accept-cookie" type="button">{{_('Accept')}}</button></li>
+  <!--<li><button class="btn btn-default btn-decline-cookie" type="button">{{_("Don't accept")}}</button></li>-->
+</ul>

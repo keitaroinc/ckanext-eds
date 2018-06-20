@@ -1,0 +1,27 @@
+{% ckan_extends %}
+
+{% block styles %}
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+{% resource 'eds/css/main.css' %}
+{% endblock %}
+
+{% block links %}
+    <script type="text/javascript" src="/base/js/load_default_language.js"></script>
+{{ super() }}
+    <link rel="apple-touch-icon" href="/base/images/favicons/energi-data-service-favicon-180.png" sizes="180x180">
+    <link rel="icon" href="/base/images/favicons/energi-data-service-favicon-192.png" type="image/png" sizes="192x192">
+    <link rel="shortcut icon" href="/base/images/favicons/energi-data-service-favicon-512.png" type="image/png" sizes="512x512">
+{% endblock %}
+
+{% set user_locale = h.get_user_locale() %}
+
+{% block headtag %}
+   {{ super() }}
+   data-user-locale="{{ user_locale }}"
+{% endblock %}
+
+{% block title %}
+    {% block subtitle %}{% endblock %}
+    {% if self.subtitle()|trim %} {{ g.template_title_deliminater }} {% endif %}
+    {{ h.config_option_show('ckan.site_title', request.environ.CKAN_LANG) }}
+{% endblock %}

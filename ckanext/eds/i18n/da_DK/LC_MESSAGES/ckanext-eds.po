@@ -1,0 +1,707 @@
+# Danish (Denmark) translations for ckanext-eds.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the ckanext-eds
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-eds 0.0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-06-07 12:00+0200\n"
+"PO-Revision-Date: 2017-05-17 13:08+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: da_DK\n"
+"Language-Team: da_DK <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ckanext/eds/controllers/subscriptions.py:47
+msgid "Successfully unsubscribed from the selected {0}!"
+msgstr "Med succes fravalgt abonnement på den(t) valgte {0}"
+
+#: ckanext/eds/controllers/subscriptions.py:66
+msgid "Subscription type: {0} is not supported!"
+msgstr "Abonnementstype {0} er ikke muligt"
+
+#: ckanext/eds/controllers/subscriptions.py:79
+msgid "Successfully unsubscribed from the selected {0}(s)!"
+msgstr "Med succes fravalgt abonnement på de valgte {0}(s)!"
+
+#: ckanext/eds/templates/error_document_template.html:3
+#, python-format
+msgid "Error %(error_code)s"
+msgstr "Fejl %(error_code)s"
+
+#: ckanext/eds/templates/footer.html:7
+msgid "Energinet.dk"
+msgstr "Energinet"
+
+#: ckanext/eds/templates/footer.html:11
+msgid "Data Guide"
+msgstr "Dataguide"
+
+#: ckanext/eds/templates/footer.html:23
+msgid "Powered by"
+msgstr "Powered by"
+
+#: ckanext/eds/templates/footer.html:23
+msgid "CKAN"
+msgstr "CKAN"
+
+#: ckanext/eds/templates/header.html:12
+msgid "Sysadmin settings"
+msgstr "Sysadmin indstillinger"
+
+#: ckanext/eds/templates/header.html:14
+msgid "Admin"
+msgstr "Admin"
+
+#: ckanext/eds/templates/header.html:19
+msgid "View profile"
+msgstr "Se profil"
+
+#: ckanext/eds/templates/header.html:26
+#, python-format
+msgid "Dashboard (%(num)d new item)"
+msgid_plural "Dashboard (%(num)d new items)"
+msgstr[0] "Panel (%(num)d new item)"
+msgstr[1] "Panel (%(num)d new items)"
+
+#: ckanext/eds/templates/header.html:29
+#: ckanext/eds/templates/user/dashboard.html:6
+msgid "Dashboard"
+msgstr "Panel"
+
+#: ckanext/eds/templates/header.html:35
+#: ckanext/eds/templates/user/dashboard.html:16
+msgid "Edit settings"
+msgstr "Ændre indstillinger"
+
+#: ckanext/eds/templates/header.html:37
+msgid "Settings"
+msgstr "Indstilinger"
+
+#: ckanext/eds/templates/header.html:43 ckanext/eds/templates/header.html:45
+msgid "Log out"
+msgstr "Log ud"
+
+#: ckanext/eds/templates/header.html:56
+msgid "Log in"
+msgstr "Log ind"
+
+#: ckanext/eds/templates/header.html:58
+#: ckanext/eds/templates/home/layout1.html:144
+msgid "Register"
+msgstr "Opret dig som bruger"
+
+#: ckanext/eds/templates/header.html:108
+msgid "Search Datasets"
+msgstr "Søg efter datasæt"
+
+#: ckanext/eds/templates/header.html:109
+msgid "Search datasets"
+msgstr "Søg efter datasæt"
+
+#: ckanext/eds/templates/header.html:123
+#: ckanext/eds/templates/user/edit_user_form.html:95
+msgid "Datasets"
+msgstr "Datasæt"
+
+#: ckanext/eds/templates/header.html:124
+msgid "Organizations"
+msgstr "Organisationer"
+
+#: ckanext/eds/templates/header.html:125
+#: ckanext/eds/templates/user/edit_user_form.html:100
+msgid "Groups"
+msgstr "Grupper"
+
+#: ckanext/eds/templates/header.html:126
+#: ckanext/eds/templates/home/about.html:3
+#: ckanext/eds/templates/home/about.html:6
+#: ckanext/eds/templates/user/edit_user_form.html:51
+msgid "About"
+msgstr "Om"
+
+#: ckanext/eds/templates/admin/base.html:4
+msgid "Sysadmins"
+msgstr "Sysadmins"
+
+#: ckanext/eds/templates/admin/base.html:5
+msgid "Config"
+msgstr "Konfigurer"
+
+#: ckanext/eds/templates/admin/base.html:7
+#: ckanext/eds/templates/admin/quick_facts.html:23
+msgid "Quick Facts"
+msgstr "Korte facts"
+
+#: ckanext/eds/templates/admin/base.html:9
+msgid "Trash"
+msgstr "Slettet"
+
+#: ckanext/eds/templates/admin/quick_facts.html:29
+msgid ""
+" In this section the administrator can manage the Quick Facts shown on "
+"the home page. "
+msgstr "Her kan administratoren ændre de korte facts, der vises på forsiden"
+
+#: ckanext/eds/templates/admin/snippets/charts_fields.html:3
+msgid "Select dataset"
+msgstr "Vælg datasæt"
+
+#: ckanext/eds/templates/admin/snippets/charts_fields.html:6
+msgid "Choose dataset"
+msgstr "Vælg datasæt"
+
+#: ckanext/eds/templates/admin/snippets/charts_fields.html:12
+msgid "Select resource"
+msgstr "Vælg ressourse"
+
+#: ckanext/eds/templates/admin/snippets/charts_fields.html:15
+msgid "Choose resource"
+msgstr "Vælg ressource"
+
+#: ckanext/eds/templates/admin/snippets/charts_fields.html:21
+msgid "Select resource view"
+msgstr "Vælg ressourcevisning"
+
+#: ckanext/eds/templates/admin/snippets/charts_fields.html:24
+msgid "Choose view"
+msgstr "Vælg visning"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:11
+msgid "Quick Fact - Position 0"
+msgstr "Korte facts - Position 0"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:25
+msgid "Dataset:"
+msgstr "Datasæt"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:31
+msgid "Resource:"
+msgstr "Ressource"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:33
+msgid "Unnamed resource"
+msgstr "Unavngivet ressource"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:37
+msgid "View name:"
+msgstr "Visningens navn"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:47
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:62
+msgid "Change"
+msgstr "Ændre"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:63
+msgid "Clear"
+msgstr "Ryd"
+
+#: ckanext/eds/templates/admin/snippets/charts_list.html:67
+#: ckanext/eds/templates/admin/snippets/charts_list.html:74
+#: ckanext/eds/templates/user/edit_user_form.html:85
+#: ckanext/eds/templates/user/edit_user_form.html:322
+msgid "Update"
+msgstr "Opdater"
+
+#: ckanext/eds/templates/group/snippets/group_item.html:27
+#: ckanext/eds/templates/organization/snippets/organization_item.html:26
+msgid "{num} Dataset"
+msgid_plural "{num} Datasets"
+msgstr[0] "{num} Datasæt"
+msgstr[1] "{num} Datasæt"
+
+#: ckanext/eds/templates/group/snippets/group_item.html:29
+#: ckanext/eds/templates/organization/snippets/organization_item.html:28
+msgid "0 Datasets"
+msgstr "0 Datasæt"
+
+#: ckanext/eds/templates/group/snippets/group_item.html:33
+#: ckanext/eds/templates/group/snippets/group_item.html:34
+msgid "View {name}"
+msgstr "Se {name}"
+
+#: ckanext/eds/templates/group/snippets/group_item.html:38
+#: ckanext/eds/templates/snippets/search_form.html:84
+msgid "Remove"
+msgstr "Fjern"
+
+#: ckanext/eds/templates/group/snippets/group_item.html:38
+msgid "Remove dataset from this group"
+msgstr "Fjern datasæt fra denne gruppe"
+
+#: ckanext/eds/templates/group/snippets/helper.html:4
+msgid "What are Groups?"
+msgstr "Hvad er grupper?"
+
+#: ckanext/eds/templates/group/snippets/helper.html:8
+msgid ""
+" Used to group data sets according position in the energy system. It may "
+"be within, for example, energy production, energy consumption, energy "
+"transport and market. A data set may belong to several groups. Some of "
+"the groups are considered as main groups, which form the data guide on "
+"the front page. All data sets are associated with at least one of the "
+"main groups, so that all data sets appear through the data guide. "
+msgstr ""
+"Anvendes til gruppering af datasæt ud fra placering i energisystemet. Det"
+" kan være indenfor f.eks. energiproduktion, energiforbrug, "
+"energitransport og markedet. Et datasæt kan tilhøre flere grupper. En del"
+" af grupperne betragtes som hovedgrupper, og vises i dataguiden på "
+"forsiden. Alle datasæt tilknyttes mindst én af hovedgrupperne, således at"
+" alle datasæt kan findes frem via dataguiden. "
+
+#: ckanext/eds/templates/group/snippets/helper.html:13
+msgid ""
+" The groups that are not displayed in the data guide are used to further "
+"filter the list of data sets. Finally all groups can also be accessed "
+"directly in the list of groups. "
+msgstr ""
+"Grupperne, der ikke vises i dataguiden, anvendes til en yderligere "
+"filtrering af listen af datasæt. Alle grupper kan også tilgås direkte i "
+"denne oversigt. "
+
+#: ckanext/eds/templates/home/layout1.html:29
+msgid "Energy data at a glance"
+msgstr "Overblik over energidata"
+
+#: ckanext/eds/templates/home/layout1.html:56
+#: ckanext/eds/templates/user/edit_user_form.html:31
+msgid "News"
+msgstr "Nyheder"
+
+#: ckanext/eds/templates/home/layout1.html:73
+msgid "No content provided."
+msgstr "Intet indhold"
+
+#: ckanext/eds/templates/home/layout1.html:80
+msgid "There are currently no active news."
+msgstr "Der er p.t. ingen nyheder"
+
+#: ckanext/eds/templates/home/layout1.html:85
+msgid "News Archive"
+msgstr "Nyhedsarkiv"
+
+#: ckanext/eds/templates/home/layout1.html:90
+msgid "Calendar"
+msgstr "Kalender"
+
+#: ckanext/eds/templates/home/layout1.html:108
+msgid "No description provided."
+msgstr "Ingen beskrivelse tildelt"
+
+#: ckanext/eds/templates/home/layout1.html:115
+msgid "There are currently no upcoming events in the Calendar."
+msgstr "Der er p.t. ingen kommende begivenheder"
+
+#: ckanext/eds/templates/home/layout1.html:120
+msgid "Events Archive"
+msgstr "Kalenderarkiv"
+
+#: ckanext/eds/templates/home/layout1.html:122
+msgid "My Energy Data Service"
+msgstr "Min Energi Data Service"
+
+#: ckanext/eds/templates/home/layout1.html:124
+msgid ""
+"As a registered user, you can receive notifications and exchange ideas with "
+"anyone who is interested in energy data. Sign in, stay tuned, and bring your "
+"input to the Energy Data Service community."
+msgstr "Som registreret bruger kan du modtage notifikationer og udveksle ideer "
+"med alle, der er interesserede i energidata. Log ind, hold dig opdateret, og "
+"giv dit bidrag til Energi Data Service fællesskabet"
+
+#: ckanext/eds/templates/home/layout1.html:129
+msgid "Join the forum associated with the individual datasets"
+msgstr "Deltag i forummet tilknyttet de enkelte datasæt"
+
+#: ckanext/eds/templates/home/layout1.html:133
+msgid ""
+"Follow a dataset, a user or a group and receive a notification of future "
+"changes"
+msgstr "Følg et datasæt, en bruger eller en gruppe og modtag en meddelelse "
+"ved fremtidige ændringer"
+
+#: ckanext/eds/templates/home/layout1.html:137
+msgid "Subscribe to news and events, and get notified when we release new data"
+msgstr "Abonner på nyheder og begivenheder, og få besked, når vi frigiver nye data"
+
+#: ckanext/eds/templates/home/layout1.html:141
+msgid "Help Energinet to provide better service and support"
+msgstr "Hjælp Energinet til at yde dig en bedre service og support"
+
+#: ckanext/eds/templates/home/layout1.html:145
+msgid "Edit Profile"
+msgstr "Rediger profil"
+
+#: ckanext/eds/templates/home/snippets/resource_view.html:32
+msgid "This resource view is not available at the moment."
+msgstr "Denne ressourcevisning er ikke tilgængelig i øjeblikket"
+
+#: ckanext/eds/templates/home/snippets/resource_view.html:34
+msgid "Click here for more information."
+msgstr "Klik her for mere information"
+
+#: ckanext/eds/templates/home/snippets/resource_view.html:43
+msgid "Download resource"
+msgstr "Hent ressource"
+
+#: ckanext/eds/templates/home/snippets/search.html:2
+msgid "E.g. environment"
+msgstr "F.eks. environment"
+
+#: ckanext/eds/templates/home/snippets/search.html:6
+msgid "Search through the Energinet DataStore datasets"
+msgstr "Søg i Energinet Data Service datasæt"
+
+#: ckanext/eds/templates/home/snippets/search.html:11
+msgid "Search"
+msgstr "Søg"
+
+#: ckanext/eds/templates/organization/snippets/helper.html:4
+msgid "What are Organizations?"
+msgstr "Hvad er en organisationer"
+
+#: ckanext/eds/templates/organization/snippets/helper.html:8
+msgid ""
+" The organization is responsible for publishing and maintaining data and "
+"for data quality in general. The organization is responsible for "
+"providing data support and to support data usage. "
+msgstr ""
+"Ethvert datasæt er tilknyttet præcis én organisation. Organisationen er "
+"ansvarlig for at udgive og vedligeholde data og for datakvaliteten generelt. "
+"Organisationen er også ansvarlig for at yde support på data og understøtte, "
+"at data bringes i anvendelse."
+
+#: ckanext/eds/templates/organization/snippets/organization_item.html:32
+#: ckanext/eds/templates/organization/snippets/organization_item.html:33
+msgid "View {organization_name}"
+msgstr "Se {organization_name}"
+
+#: ckanext/eds/templates/snippets/follow_button.html:9
+#: ckanext/eds/templates/user/edit_user_form.html:155
+#: ckanext/eds/templates/user/edit_user_form.html:166
+#: ckanext/eds/templates/user/edit_user_form.html:217
+#: ckanext/eds/templates/user/edit_user_form.html:228
+#: ckanext/eds/templates/user/edit_user_form.html:279
+#: ckanext/eds/templates/user/edit_user_form.html:290
+msgid "Unsubscribe"
+msgstr "Følg ikke"
+
+#: ckanext/eds/templates/snippets/follow_button.html:14
+msgid "Subscribe"
+msgstr "Følg"
+
+#: ckanext/eds/templates/snippets/package_item.html:33
+msgid "Private"
+msgstr "Privat"
+
+#: ckanext/eds/templates/snippets/package_item.html:42
+msgid "Draft"
+msgstr "Kladde"
+
+#: ckanext/eds/templates/snippets/package_item.html:44
+msgid "Deleted"
+msgstr "Slettet"
+
+#: ckanext/eds/templates/snippets/package_item.html:49
+msgid "Recently updated dataset"
+msgstr "Nylig opdaterede datasæt"
+
+#: ckanext/eds/templates/snippets/package_item.html:54
+msgid "Popular"
+msgstr "Populære"
+
+#: ckanext/eds/templates/snippets/package_item.html:61
+msgid "This dataset has no description"
+msgstr "Dette datasæt har ingen beskrivelse"
+
+#: ckanext/eds/templates/snippets/search_form.html:3
+msgid "Search datasets..."
+msgstr "Søg datasæt"
+
+#: ckanext/eds/templates/snippets/search_form.html:4
+msgid "Name Ascending"
+msgstr "Navn fra A til Å"
+
+#: ckanext/eds/templates/snippets/search_form.html:4
+msgid "Name Descending"
+msgstr "Navn fra Å til A"
+
+#: ckanext/eds/templates/snippets/search_form.html:27
+msgid "Order by"
+msgstr "Sorter efter"
+
+#: ckanext/eds/templates/snippets/search_form.html:40
+msgid "Go"
+msgstr "Kør"
+
+#: ckanext/eds/templates/snippets/search_form.html:56
+msgid "Submit"
+msgstr "Indsend"
+
+#: ckanext/eds/templates/snippets/search_form.html:89
+msgid "Filter Results"
+msgstr "Filtrer resultater"
+
+#: ckanext/eds/templates/snippets/search_form.html:98
+msgid "Please try another search."
+msgstr "Prøv venligst en anden søgning"
+
+#: ckanext/eds/templates/snippets/search_form.html:102
+msgid "There was an error while searching."
+msgstr "Der skete en fejl under søgningen"
+
+#: ckanext/eds/templates/snippets/search_form.html:102
+msgid "Please try again."
+msgstr "Prøv venligst igen"
+
+#: ckanext/eds/templates/user/dashboard.html:19
+#: ckanext/eds/templates/user/dashboard.html:37
+msgid "News feed"
+msgstr "Nyheder"
+
+#: ckanext/eds/templates/user/dashboard.html:20
+msgid "My Datasets"
+msgstr "Mine datasæt"
+
+#: ckanext/eds/templates/user/dashboard.html:21
+msgid "My Organizations"
+msgstr "Min organisation"
+
+#: ckanext/eds/templates/user/dashboard.html:22
+msgid "My Groups"
+msgstr "Mine grupper"
+
+#: ckanext/eds/templates/user/dashboard.html:39
+msgid "Activity from items that I'm following"
+msgstr "Aktiviteter fra elementer, som jeg følger"
+
+#: ckanext/eds/templates/user/edit.html:6
+#: ckanext/eds/templates/user/edit_user_form.html:105
+msgid "Users"
+msgstr "Brugere"
+
+#: ckanext/eds/templates/user/edit.html:8
+msgid "Manage"
+msgstr "Administrer"
+
+#: ckanext/eds/templates/user/edit.html:17
+msgid "My Site"
+msgstr "Min Profil"
+
+#: ckanext/eds/templates/user/edit.html:19
+msgid ""
+" Customize your profile to lets other EDS users know about who you are "
+"and what you do. "
+msgstr "Tilpas din profil, og lad andre brugere vide hvem du er"
+
+#: ckanext/eds/templates/user/edit_user_form.html:4
+#, fuzzy
+#| msgid "View profile"
+msgid "Manage profile"
+msgstr "Se profil"
+
+#: ckanext/eds/templates/user/edit_user_form.html:27
+msgid "Basic Information"
+msgstr "Basisinformation"
+
+#: ckanext/eds/templates/user/edit_user_form.html:29
+msgid "Subscriptions"
+msgstr "Tilmeldinger"
+
+#: ckanext/eds/templates/user/edit_user_form.html:33
+msgid "Password"
+msgstr "Kodeord"
+
+#: ckanext/eds/templates/user/edit_user_form.html:45
+msgid "Username"
+msgstr "Brugernavn"
+
+#: ckanext/eds/templates/user/edit_user_form.html:47
+msgid "Full name"
+msgstr "Fulde navn"
+
+#: ckanext/eds/templates/user/edit_user_form.html:47
+msgid "eg. Joe Bloggs"
+msgstr "F.eks. Kristine Bock"
+
+#: ckanext/eds/templates/user/edit_user_form.html:49
+msgid "Email"
+msgstr "Email"
+
+#: ckanext/eds/templates/user/edit_user_form.html:49
+msgid "eg. joe@example.com"
+msgstr "F.eks. kbc@eksempel.dk"
+
+#: ckanext/eds/templates/user/edit_user_form.html:51
+msgid "A little information about yourself"
+msgstr "Skriv lidt om dig selv"
+
+#: ckanext/eds/templates/user/edit_user_form.html:54
+msgid "Subscribe to notification emails"
+msgstr "Tilmeld E-mail notifikationer"
+
+#: ckanext/eds/templates/user/edit_user_form.html:68
+msgid "Are you sure you want to delete this User?"
+msgstr "Er du sikker på du vil slette denne bruger"
+
+#: ckanext/eds/templates/user/edit_user_form.html:72
+msgid "Delete Profile"
+msgstr "Slet bruger"
+
+#: ckanext/eds/templates/user/edit_user_form.html:77
+msgid "Are you sure you want to regenerate the API key?"
+msgstr "Er du sikker på de vil regenerere API nøglen"
+
+#: ckanext/eds/templates/user/edit_user_form.html:81
+msgid "Regenerate API Key"
+msgstr "Regenerer API nøgle"
+
+#: ckanext/eds/templates/user/edit_user_form.html:131
+msgid "Dataset Name"
+msgstr "Datasæt navn"
+
+#: ckanext/eds/templates/user/edit_user_form.html:148
+#: ckanext/eds/templates/user/edit_user_form.html:210
+#: ckanext/eds/templates/user/edit_user_form.html:272
+msgid "Open"
+msgstr "Åben"
+
+#: ckanext/eds/templates/user/edit_user_form.html:169
+msgid "You are not subscribed to any datasets."
+msgstr "Du abonnerer ikke på nogen datasæt"
+
+#: ckanext/eds/templates/user/edit_user_form.html:193
+msgid "Group Name"
+msgstr "Gruppenavn"
+
+#: ckanext/eds/templates/user/edit_user_form.html:231
+msgid "You are not subscribed to any groups."
+msgstr "Du abonnerer ikke på nogen grupper"
+
+#: ckanext/eds/templates/user/edit_user_form.html:255
+msgid "User Name"
+msgstr "Brugernavn"
+
+#: ckanext/eds/templates/user/edit_user_form.html:293
+msgid "You are not following any users."
+msgstr "Du følger ikke nogen brugere"
+
+#: ckanext/eds/templates/user/edit_user_form.html:306
+msgid "Current Password"
+msgstr "Nuværende kodeord"
+
+#: ckanext/eds/templates/user/edit_user_form.html:313
+msgid "New Password"
+msgstr "Nyt kodeord"
+
+#: ckanext/eds/templates/user/edit_user_form.html:314
+msgid "Confirm New Password"
+msgstr "Bekræft nyt kodeord"
+
+#: ckanext/eds/templates/user/edit_user_form.html:343
+#, fuzzy
+#| msgid "Subscriptions"
+msgid "News Subscription Options"
+msgstr "Tilmeldinger"
+
+#: ckanext/eds/templates/user/edit_user_form.html:354
+#, fuzzy
+#| msgid "Subscriptions"
+msgid "Subscribe to news"
+msgstr "Tilmeldinger"
+
+#: ckanext/eds/templates/user/edit_user_form.html:363
+msgid "Send me e-mail notifications (requires news subscription)"
+msgstr "Send mig en E-mail notifikation"
+
+#: ckanext/eds/templates/user/edit_user_form.html:369
+msgid "Save"
+msgstr "Gem"
+
+#~ msgid "Customize profile"
+#~ msgstr "Tilpas profil"
+
+#~ msgid "Language"
+#~ msgstr "Sprog"
+
+#~ msgid "CO2 emissions during the last 4 hours"
+#~ msgstr "Co2 emission de sidste 4 timer"
+
+#~ msgid "National consumption of energy in megawatts (MW)"
+#~ msgstr "Nationalt forbrug af el i megawatt ( MW)"
+
+#~ msgid "Geothermal power"
+#~ msgstr "Geotermisk energi"
+
+#~ msgid "Photovoltaics"
+#~ msgstr "fotovoltaisk"
+
+#~ msgid "User 1"
+#~ msgstr "Bruger 1"
+
+#~ msgid "User2"
+#~ msgstr "Bruger 2"
+
+#~ msgid ""
+#~ "Please set the default language for "
+#~ "your EDS profile. Otherwise, English "
+#~ "will be used as default."
+#~ msgstr "Vælg standard sprog."
+
+#~ msgid "English"
+#~ msgstr "Engelsk"
+
+#~ msgid "Danish"
+#~ msgstr "Dansk"
+
+#~ msgid "Reset"
+#~ msgstr "Nulstil"
+
+#: ckanext/eds/templates/package/snippets/resources_list.html:24
+#, python-format
+msgid ""
+" <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not add"
+" some?</a></p> "
+msgstr ""
+
+#: ckanext/eds/templates/package/snippets/resources_list.html:28
+msgid "This dataset has no data"
+msgstr ""
+
+#: ckanext/eds/templates/snippets/facet_list.html:25
+msgid "Show More {facet_type}"
+msgstr "Vis flere {facet_type}"
+
+#: ckanext/eds/templates/snippets/facet_list.html:28
+msgid "Show Only Popular {facet_type}"
+msgstr "Vis kun populære {facet_type}"
+
+#: ckanext/eds/templates/snippets/facet_list.html:32
+msgid "There are no {facet_type} that match this search"
+msgstr "Der er ingen {facet_type} der matcher denne søgning"
+
+#: ckanext/eds/templates/user/new.html:4
+msgid "Why Sign Up?"
+msgstr "Hvorfor oprette sig?"
+
+#: ckanext/eds/templates/user/new.html:6
+msgid ""
+"Register and enjoy the following benefits: Discussion forums with other users"
+" and Energinet and subscribe to various notifications and changes in datasets"
+msgstr "Registrere dig og få følgende fordele: Deltag i diskussioner med andre"
+" brugere og Energinet og abonner på forskellige notifikationer, f.eks ændringer"
+" i datasæt"
+
+#: ckanext/eds/templates/user/new_user_form.html:14
+msgid "I give my consent that my data may be used in accordance with the privacy policy"
+msgstr "Jeg giver mit samtykke til at min data må bruges i henhold til privatlivs politiken"

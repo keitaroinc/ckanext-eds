@@ -1,0 +1,21 @@
+{% ckan_extends %}
+{% block admin_form %}
+    {% set temp_items = [] %}
+    {% set current_lang = request.environ.CKAN_LANG %}
+    {% for item in form_items %}
+        {% if item.name == 'ckan.site_description' %}
+            {% do item.update({'name': 'ckan.site_description_' + current_lang}) %}
+        {% elif item.name == 'ckan.site_intro_text' %}
+            {% do item.update({'name': 'ckan.site_intro_text_' + current_lang}) %}
+        {% elif item.name == 'ckan.site_title' %}
+            {% do item.update({'name': 'ckan.site_title_' + current_lang}) %}
+        {% elif item.name == 'ckan.site_about' %}
+            {% do item.update({'name': 'ckan.site_about_' + current_lang}) %}
+        {% endif %}
+        {% do temp_items.append(item) %}
+    {% endfor %}
+    {% set form_items = temp_items %}
+    {{ super() }}
+    {% set cookie_notice_name = 'ckan.cookie_notice_content_' + current_lang %}
+    {{ form.markdown(cookie_notice_name, id=cookie_notice_name, label=_('Cookie notice content'), value=h.config_option_show('ckan.cookie_notice_content', current_lang), error=errors[cookie_notice_name]) }}
+{% endblock %}

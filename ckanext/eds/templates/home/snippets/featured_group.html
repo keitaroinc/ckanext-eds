@@ -1,0 +1,7 @@
+{% set groups = h.get_data_guide_items() %}
+
+{% for group in groups %}
+  <div class="media-item">
+    {% snippet 'snippets/group_item_home.html', group=group, truncate=50, truncate_title=35 %}
+  </div>
+{% endfor %}

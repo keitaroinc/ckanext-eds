@@ -1,0 +1,158 @@
+<div class="section-wrapper banner-wrapper">
+    <div class="container">
+        <div class="banner-flex-center">
+            <h2 class="banner-title">{{ h.config_option_show('ckan.site_title', request.environ.CKAN_LANG) }}</h2>
+            <p class="banner-lead">{{ h.config_option_show('ckan.site_description', request.environ.CKAN_LANG) }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="section-wrapper dataguide-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="media-grid">
+                    {# Note: this featured_group block is used as an example in the theming tutorial in the docs! If you change this code, be
+                    sure to check whether you need to update the docs. #} {# Start template block example. #} {% block featured_group
+                    %} {% snippet 'home/snippets/featured_group.html' %} {% endblock %} {# End template block example. #}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Facts -->
+<div role="main" class="hero quick-facts-wrapper">
+    <div class="container">
+        <div class="section-wrapper">
+            <div class="row">
+                {% set bootstrap_classes = 'col-md-3 col-sm-6' %} {% set resource_view_ids = h.eds_get_quick_facts_views() %} {% set resource_view_ids_length
+                = resource_view_ids|length %} {% for id in resource_view_ids %} {% if resource_view_ids_length == 1 %} {%
+                set bootstrap_classes = 'col-md-8 col-md-offset-2' %} {% elif resource_view_ids_length == 2 %} {% set bootstrap_classes
+                = 'col-md-6 col-sm-6' %} {% elif resource_view_ids_length == 3 %} {% set bootstrap_classes = 'col-md-4 col-sm-6'
+                %} {% endif %} {% if id %}
+                <div class="{{ bootstrap_classes }}">
+                    <div class="quick-fact-graph">
+                        {% snippet 'home/snippets/chart_container.html', resource_view_id=id %}
+                    </div>
+                </div>
+                {% endif %} {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./Quick Facts -->
+
+<!-- Info -->
+<div class="section-wrapper info-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <h4 class="section-title">
+                    <span class="fa fa-newspaper-o"></span>
+                    <span class="fa-label">{{ _('News') }}</span>
+                </h4>
+                {% set more_news_url = h.url_for('news_index') %} {% set news_list = h.eds_get_news(limit=2) %} {% if news_list %} {% for
+                news in news_list %} {% set news_url = h.url_for('news_show', id=news.id) %}
+                <div class="info-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="info-item-title"><a href="{{news_url}}">{{ news.title }}</a></h3>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="info-item-date">{{ h.render_datetime(news.created_at) }}</p>
+                        </div>
+                    </div>
+                    <div class="info-item-content">
+                        {% if news.content %}
+                        <p>{{ h.render_markdown(news.content, allow_html=True)|truncate(100, Flase) }}</p>
+                        {% else %}
+                        <p>{{ _('No content provided.') }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %} {% else %}
+                <div class="info-item">
+                    <div class="info-item-content">
+                        {{ _('There are currently no active news.') }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <a class="btn btn-xs btn-default" href="{{ more_news_url }}">{{_('News Archive')}}</a>
+            </div>
+            <div class="col-md-4">
+                <h4 class="section-title">
+                    <span class="fa fa-calendar"></span>
+                    <span class="fa-label">{{_('Calendar')}}</span>
+                </h4>
+                {% set events = h.eds_get_events(limit=2) %} {% set more_events_url = h.url_for('event_index') %} {% if events %} {% for
+                event in events %} {% set event_url = h.url_for('event_show', id=event.id) %}
+
+                <div class="info-item">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="info-item-title"><a href="{{ event_url }}">{{ event.title }}</a></h3>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="info-item-date">
+                                {% if event.start != event.end %}
+                                {{ h.render_datetime(event.start) }} &mdash;<br>{{ h.render_datetime(event.end) }}
+                                {% else %}
+                                {{ h.render_datetime(event.start) }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info-item-content">
+                        {% if event.description %}
+                        <p>{{ h.render_markdown(event.description)|truncate(100, False) }}</p>
+                        {% else %}
+                        <p>{{ _('No description provided.') }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %} {% else %}
+                <div class="info-item">
+                    <div class="info-item-content">
+                        {{ _('There are currently no upcoming events in the Calendar.') }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <a class="btn btn-xs btn-default" href="{{ more_events_url }}">{{_('Events Archive')}}</a>
+            </div>
+            <div class="col-md-3">
+                <h4 class="section-title">
+                    <span class="fa fa-group"></span>
+                    <span class="fa-label">{{_('My Energy Data Service')}}</span>
+                </h4>
+                <p>{% trans %}As a registered user, you can receive notifications and exchange ideas with anyone who is interested in energy data. Sign in, stay tuned, and bring your input to the Energy Data Service community.{% endtrans %}
+                </p>
+                <ul class="list-unstyled list-registration-benefits">
+                    <li>
+                        <span class="fa fa-comment"></span>
+                        <span class="fa-label">{{_('Join the forum associated with the individual datasets')}}</span>
+                    </li>
+                    <li>
+                        <span class="fa fa-feed"></span>
+                        <span class="fa-label">{{_('Follow a dataset, a user or a group and receive a notification of future changes')}}</span>
+                    </li>
+                    <li>
+                        <span class="fa fa-newspaper-o"></span>
+                        <span class="fa-label">{{_('Subscribe to news and events, and get notified when we release new data')}}</span>
+                    </li>
+                    <li>
+                        <span class="fa fa-heartbeat"></span>
+                        <span class="fa-label">{{_('Help Energinet to provide better service and support')}}</span>
+                    </li>
+                </ul>
+                {% if not c.userobj %} {% link_for _('Register'), controller='user', action='register', class_='btn btn-primary' %} {% else
+                %} {% link_for _('Edit Profile'), controller='user', action='edit', class_='btn btn-xs btn-primary' %} {%
+                endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ./Info -->

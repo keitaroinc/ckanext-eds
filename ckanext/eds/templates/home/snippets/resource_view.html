@@ -1,0 +1,49 @@
+{#
+
+Renders a single chart from a resource view.
+
+resource_view - Metadata of a resource view
+resource - Metadata of a resource
+package - Metadata of a package
+
+Example usage:
+  {% snippet 'home/snippets/resource_view.html',
+             resource_view=resource_view,
+             resource=resource,
+             package=package
+  %}
+
+#}
+
+{% block resource_view %}
+  <div id="view-{{ resource_view['id'] }}"
+       data-id="{{ resource_view['id'] }}"
+       data-title="{{ resource_view['title'] }}"
+       data-description="{{ resource_view['descripion'] }}"
+       data-graph_height="{{ graph_height }}"
+       data-show_axis="{{ show_axis }}"
+       class="graph-container-resource-view">
+    {% if not h.resource_view_is_iframed(resource_view) %}
+      {{ h.rendered_resource_view(resource_view, resource, package) }}
+    {% else %}
+      <div class="data-viewer-error js-hide">
+        <p class="text-error">
+          <i class="glyphicon glyphicon-info-sign"></i>
+          {{ _('This resource view is not available at the moment.') }}
+          <a href="#" data-toggle="collapse" data-target="#data-view-error">
+            {{ _('Click here for more information.') }}
+          </a>
+        </p>
+        <p id="data-view-error" class="collapse"></p>
+        <p>
+          {% set raw_resource_url = resource.url %}
+
+          <a href="{{ raw_resource_url }}" class="btn btn-large resource-url-analytics" target="_blank">
+            <i class="icon-lg glyphicon glyphicon-download"></i>
+            {{ _('Download resource') }}
+          </a>
+        </p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

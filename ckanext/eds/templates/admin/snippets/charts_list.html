@@ -1,0 +1,86 @@
+{% set charts_number = h.eds_get_nubmer_of_charts() %}
+<div class="row">
+  {% for n in range(1,charts_number + 1) %}
+  <div class="col-md-6">
+    <fieldset>
+      {% set chart_number_key =  ['ckanext.eds.chart_', n]|join('') %}
+      {% set hidden_value = data[chart_number_key] %}
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ _('Quick Fact - Position 0') }}{{ n }}</h3>
+        </div>
+        <div class="panel-body">
+          {% if data[chart_number_key] %}
+            {% set chart = h.eds_get_chart_resources(data[chart_number_key]) %}
+
+            {% if chart is not none %}
+
+              {% set dataset_name = chart[2].title %}
+              {% set resource_name = chart[1].name %}
+              {% set view_name = chart[0].title %}
+
+              <div class="graph-container" id="chart_resourceview_{{ n }}_preview">
+                <dl>
+                  <dt>{{_('Dataset:')}}</dt>
+                  <dd>
+                    {{ dataset_name }} <br>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>{{_('Resource:')}}</dt>
+                  <dd>
+                    {% if resource_name %}{{ chart[1].name }}{% else %}{{_('Unnamed resource')}}{% endif %} <br>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>{{_('View name:')}}</dt>
+                  <dd>
+                    {{ view_name }} <br>
+                  </dd>
+                </dl>
+
+                <div class="panel panel-quick-fact-preview">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                      <span class="fa fa-eye"></span>
+                      <span class="fa-label">{{ _('Preview') }}</span>
+                    </h3>
+                  </div>
+                  <div class="panel-body">
+
+                    {% snippet 'home/snippets/resource_view.html',
+                    resource_view=chart[0],
+                    resource=chart[1],
+                    package=chart[2],
+                    graph_height='180',
+                    show_axis='0'%}
+                  </div>
+                </div>
+              </div>
+              <ul class="list-inline" id="edit_buttons_{{ n }}">
+                <li><a class="btn btn-default" type="button" id="change_chart_button_{{ n }}">{{_('Change')}}</a></li>
+                <li><a class="btn btn-default" type="button" id="clear_chart_{{ n }}">{{_('Clear')}}</a></li>
+              </ul>
+
+              {% snippet 'admin/snippets/charts_fields.html', n=n, class='hidden' %}
+              <button type="submit" class="btn btn-primary" name="save" style="display: none;" id="submit_button_{{ n }}">{{ _('Update') }}</button>
+
+            {% else %}
+              {% snippet 'admin/snippets/charts_fields.html', n=n %}
+              <button type="submit" class="btn btn-primary" name="save" style="display: none;" id="submit_button_{{ n }}">{{ _('Update') }}</button>
+            {% endif %}
+
+          {% else%}
+            <div class="graph-container" id="chart_resourceview_{{ n }}_preview"></div>
+            {% snippet 'admin/snippets/charts_fields.html', n=n %}
+            <button type="submit" class="btn btn-primary" name="save">{{ _('Update') }}</button>
+          {% endif %}
+
+          <input type="hidden" id="{{ chart_number_key }}" name="{{ chart_number_key }}" value="{{ hidden_value }}"/>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  {% endfor%}
+</div>

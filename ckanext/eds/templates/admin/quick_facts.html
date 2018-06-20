@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+{% import 'macros/form.html' as form %}
+{% block scripts %}
+{{ super() }}
+{% resource "eds/quick_facts.js" %}
+{% endblock %}
+
+{% set action_url = h.url_for('eds_quick_facts') %}
+
+{% block primary_content_inner %}
+
+  {{ form.errors(error_summary) }}
+
+  <form method='post' action="{{ action_url }}" id="admin-config-form" class="quick-facts-form" enctype="multipart/form-data">
+    {% snippet 'admin/snippets/charts_list.html', data=data %}
+  </form>
+{% endblock %}
+
+{% block secondary_content %}
+  <div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <span class="fa fa-pie-chart"></span>
+      <span class="fa-label">{{ _('Quick Facts') }}</span>
+    </h2>
+    <div class="module-content">
+
+      {% set docs_url = "http://docs.ckan.org/en/{0}/sysadmin-guide.html".format(g.ckan_doc_version) %}
+      <p>
+      {% trans %}
+        In this section the administrator can manage the Quick Facts shown on the home page.
+      {% endtrans %}
+      </p>
+    </div>
+  </div>
+{% endblock %}

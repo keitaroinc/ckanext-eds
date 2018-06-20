@@ -1,0 +1,31 @@
+{#
+
+Renders a single chart from a resource view with chart's name.
+
+resource_view_id - id of a resource view
+
+Example usage:
+  {% snippet 'home/snippets/chart_container.html',
+             resource_view_id='d305f522-d53a-4fd6-9e77-a5a68ba74071'
+  %}
+
+#}
+
+{% set chart = h.eds_get_chart_resources(resource_view_id) %}
+
+{% if chart is not none %}
+  {% snippet 'home/snippets/resource_view.html',
+             resource_view=chart[0],
+             resource=chart[1],
+             package=chart[2],
+             graph_height='150',
+             show_axis='1'
+  %}
+
+  {% set can_edit = h.check_access('package_update', {'id':chart[2].id }) %}
+  {% set url_action = 'resource_read' if can_edit == 'True' else 'resource_extractor_show' %}
+  {% set ctrl = 'package' if can_edit == 'True' else 'ckanext.dataextractor.controllers.dataextractor:DataextractorController' %}
+
+  {% set resource_url = h.url_for(controller=ctrl, action=url_action, id=chart[2].id, resource_id=chart[1].id) %}
+  <a class="quick-fact-title" href="{{ resource_url }}">{{ chart[0].title }}</a>
+{% endif %}

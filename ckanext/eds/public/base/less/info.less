@@ -1,0 +1,54 @@
+/*
+*
+* Energy DataStore - Energinet.dk
+* version: 1.0
+* ==============================================================================
+* Info section - landing page
+*
+*/
+
+.info-wrapper{
+  padding: @grid-gutter-width*1.5 0;
+  background: @body-bg;
+
+  .section-title{
+    .text-uppercase;
+    font-weight: 300;
+    padding-bottom: @grid-gutter-width/2;
+    margin-bottom: @grid-gutter-width;
+    border-bottom: 1px solid @color-secondary-03;
+  }
+}
+
+.info-item{
+  margin-bottom: @grid-gutter-width;
+
+  &:last-of-type{
+    margin-bottom: @grid-gutter-width - 5;
+  }
+}
+
+.info-item-title{
+  .h5;
+
+  @media (min-width: @screen-md-min){
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+}
+
+.info-item-date{
+  color: @color-secondary-05;
+  font-size: @font-size-small - 1;
+}
+
+.info-item-content{
+  font-size: @font-size-small + 1;
+
+  p{
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}

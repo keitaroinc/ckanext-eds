@@ -1,0 +1,52 @@
+{% resource 'eds/layout.js' %}
+{% resource 'eds/cookie-notice.js' %}
+{% resource 'eds/language_settings.js' %}
+{% ckan_extends %}
+
+{% block content %}
+{% block maintag %}
+<div role="main">{% endblock %}
+    <div id="content" class="container-fluid">
+        {% block main_content %}
+        {% block toolbar %}{{ super() }}{% endblock %}
+
+        <div class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' %} no-nav{% endif %}">
+
+            {% block flash %}
+            <div class="{% if c.action=='resource_extractor_show' or c.action=='resource_read' %} col-md-10 col-md-offset-1 {% else %} col-md-12 {% endif %}">
+                {{ super() }}
+            </div>
+            {% endblock %}
+
+            <div class="col-md-10 col-md-offset-1">
+                {% block pre_primary %} {{ super() }} {% endblock %}
+            </div>
+
+            {% if c.action=='resource_extractor_show' or c.action=='resource_read' %}
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    {% endif %}
+
+                    {% block secondary %}
+                    <aside class="col-md-3">
+                        {% block secondary_content %} {{ super() }} {% endblock %}
+                    </aside>
+                    {% endblock %}
+
+                    {% block primary %}
+                    <div class="col-md-9 {% if self.secondary()|trim == '' %} col-md-offset-3{% endif %}">
+                        {% block primary_content %} {{ super() }} {% endblock %}
+                    </div>
+                    {% endblock %}
+
+                    {% if c.action=='resource_extractor_show' or c.action=='resource_read' %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endblock %}        
+    </div>
+</div>
+{% endblock %}

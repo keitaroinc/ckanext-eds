@@ -1,0 +1,28 @@
+<div id="change_chart_{{ n }}" class="{{ class }}">
+  <div class="form-group control-select">
+    <label class="control-label" for="chart_dataset_{{ n }}">{{_('Select dataset')}}</label>
+    <div class="controls ">
+      <select class="form-control" id="chart_dataset_{{ n }}">
+        <option value="">{{ _('Choose dataset') }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group control-select chart_resource_{{ n }} hidden">
+    <label class="control-label" for="chart_resource_{{ n }}">{{_('Select resource')}}</label>
+    <div class="controls ">
+      <select class="form-control" id="chart_resource_{{ n }}">
+        <option value="">{{ _('Choose resource') }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group control-select chart_resourceview_{{ n }} hidden">
+    <label class="control-label" for="chart_resourceview_{{ n }}">{{_('Select resource view')}}</label>
+    <div class="controls ">
+      <select class="form-control" id="chart_resourceview_{{ n }}">
+        <option value="">{{ _('Choose view') }}</option>
+      </select>
+    </div>
+  </div>
+</div>

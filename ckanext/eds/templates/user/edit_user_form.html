@@ -1,0 +1,389 @@
+{% resource 'eds/edit-user-form.js' %}
+{% import 'macros/form.html' as form %}
+
+<h1>{{ _('Manage profile') }}</h1>
+
+{% set ctrl = 'ckanext.eds.controllers.subscriptions:SubscriptionController' %}
+{% set base_url = h.url_for(controller='user', action='edit', id=c.user) %}
+
+{% set subscription_url = h.url_for(controller=ctrl, action='subscription_manage', type='dataset') %}
+{% set basic_info_url = '#basic-info' %}
+{% set password_url = '#password' %}
+{% set other_settings_url = '#news' %}
+{% set subscriptions = false %}
+
+{% if c.action == 'subscription_manage' %}
+{% set password_url = base_url + password_url %}
+{% set other_settings_url = base_url + other_settings_url %}
+{% set basic_info_url = base_url + basic_info_url %}
+{% set subscriptions = true %}
+{% endif %}
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="{% if not subscriptions %}active{% endif %}"><a href="{{ basic_info_url }}"
+                                                             {% if not subscriptions %}data-toggle="tab"{% endif %}><span
+          class="fa fa-user-circle-o"></span><span class="fa-label">{{ _('Basic Information') }}</span></a></li>
+  <li class="{% if subscriptions %}active{% endif %}"><a href="{{ subscription_url }}"><span
+          class="fa fa-list"></span><span class="fa-label">{{ _('Subscriptions') }}</span></a></li>
+            <li><a href="{{ other_settings_url }}" {% if not subscriptions %}data-toggle="tab"{% endif %}><span
+          class="fa fa-newspaper-o"></span><span class="fa-label">{{ _('News') }}</span></a></li>
+  <li><a href="{{ password_url }}" {% if not subscriptions %}data-toggle="tab"{% endif %}><span
+          class="fa fa-lock"></span><span class="fa-label">{{ _('Password') }}</span></a></li>
+</ul>
+
+{{ form.errors(error_summary) }}
+
+<!-- Tab panes -->
+<div class="tab-content">
+  {% if not subscriptions %}
+  <div role="tabpanel" class="tab-pane {% if not subscriptions %}active{% endif %}" id="basic-info">
+    <form id="user-edit-form" class="dataset-form" method="post" action="{{ action }}">
+
+      <fieldset>
+        {{ form.input('name', label=_('Username'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], is_required=true) }}
+
+        {{ form.input('fullname', label=_('Full name'), id='field-fullname', value=data.fullname, error=errors.fullname, placeholder=_('eg. Joe Bloggs'), classes=['control-medium']) }}
+
+        {{ form.input('email', label=_('Email'), id='field-email', type='email', value=data.email, error=errors.email, placeholder=_('eg. joe@example.com'), classes=['control-medium'], is_required=true) }}
+
+        {{ form.markdown('about', label=_('About'), id='field-about', value=data.about, error=errors.about, placeholder=_('A little information about yourself')) }}
+
+        {% if c.show_email_notifications %}
+        {% call form.checkbox('activity_streams_email_notifications', label=_('Subscribe to notification emails'), id='field-activity-streams-email-notifications', value=True, checked=c.userobj.activity_streams_email_notifications) %}
+        {% set helper_text = _("You will receive notification emails from {site_title}, e.g. when you have new activities on your dashboard."|string) %}
+        {{ form.info(helper_text.format(site_title=g.site_title), classes=['info-help-tight']) }}
+        {% endcall %}
+        {% endif %}
+        {{ form.input('old_password',
+        type='password',
+        label=_('Current Password'),
+        id='field-password',
+        value=data.oldpassword,
+        error=errors.oldpassword,
+        classes=['control-medium'],
+        attrs={'autocomplete': 'off'}
+        ) }}
+        <div><i class="fa fa-info-circle"></i> {{ _('Current password is required only if you try to change your email address.') }}</div>
+
+      </fieldset>
+      <br>
+      <input type="hidden" name="password1" value/>
+      <input type="hidden" name="password2" value/>
+
+      <div class="form-actions">
+        {% block delete_button %}
+        {% if h.check_access('user_delete', {'id': data.id}) %}
+        {% set locale = h.dump_json({'content': _('Are you sure you want to delete this User?')}) %}
+        <a class="btn btn-danger pull-left"
+           href="{% url_for controller='user', action='delete', id=data.id %}"
+           data-module="confirm-action" data-module-i18n="{{ locale }}">
+          {% block delete_button_text %}{{ _('Delete Profile') }}{% endblock %}</a>
+        {% endif %}
+        {% endblock %}
+        {% block generate_button %}
+        {% if h.check_access('user_generate_apikey', {'id': data.id}) %}
+        {% set locale = h.dump_json({'content': _('Are you sure you want to regenerate the API key?')}) %}
+        <a class="btn btn-warning"
+           href="{% url_for controller='user', action='generate_apikey', id=data.id %}"
+           data-module="confirm-action" data-module-i18n="{{ locale }}">
+          {% block generate_button_text %}{{ _('Regenerate API Key') }}{% endblock %}</a>
+        {% endif %}
+        {% endblock %}
+        {{ form.required_message() }}
+        <button class="btn btn-primary" type="submit" name="save">{{ _('Update') }}</button>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+  <div role="tabpanel" class="tab-pane {% if subscriptions %}active{% endif %}" id="subscriptions">
+
+    <ul class="list-inline list-subscription-filters">
+      <li {% if c.subscription_type == 'dataset' %}class="active"{% endif %}>
+      <a href="#dataset-subscriptions" class="btn btn-default" data-toggle="tab">
+        <span class="fa fa-database"></span><span class="fa-label">{{ _('Datasets') }}</span>
+      </a>
+      </li>
+      <li {% if c.subscription_type == 'group' %}class="active"{% endif %}>
+      <a href="#group-subscriptions" class="btn btn-default" data-toggle="tab">
+        <span class="fa fa-folder-open"></span><span class="fa-label">{{ _('Groups') }}</span>
+      </a>
+      </li>
+      <li {% if c.subscription_type == 'user' %}class="active"{% endif %}>
+      <a href="#user-subscriptions" class="btn btn-default" data-toggle="tab">
+        <span class="fa fa-group"></span><span class="fa-label">{{ _('Users') }}</span>
+      </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in {% if c.subscription_type == 'dataset' %}active{% endif %}"
+           id="dataset-subscriptions">
+        <form id="dataset-subscription-edit-form" class="dataset-form " method="post"
+              action="{{ h.url_for(controller=ctrl, action='subscription_manage', type='dataset') }}">
+          <input name="subscription_type" value="dataset" type="hidden"/>
+          {% if c.dataset_list|length > 0 %}
+          <table class="table">
+            <colgroup>
+              <col class="col-md-1">
+              <col class="col-md-9">
+              <col class="col-md-2">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>
+                <div class="ui-toggle">
+                  <input class="mark-all" type="checkbox" id="mark_all_datasets">
+                  <label class="ui-toggle-icon" for="mark_all_datasets"></label>
+                </div>
+              </th>
+              <th>{{ _('Dataset Name') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in c.dataset_list %}
+            <tr>
+              <td>
+                <div class="ui-toggle">
+                  <input type="checkbox" id="{{ d.id }}" name="dataset" value="{{ d.id }}">
+                  <label class="ui-toggle-icon" for="{{ d.id }}"></label>
+                </div>
+              </td>
+              <td><label for="{{ d.id }}">{{ d.title }}</label></td>
+              <td class="text-right">
+                <ul class="list-inline">
+                  <li>
+                    <a href="{{ h.url_for(controller='package', action='read', id=d.name) }}"
+                       class="btn btn-info" title="{{ _('Open') }}">
+                      {# Should link to the dataset page #}
+                      <span class="fa fa-database"></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ h.url_for(controller=ctrl, action='subscription_delete', type='dataset', id=d.id) }}"
+                       class="btn btn-danger" title="{{ _('Unsubscribe') }}">
+                      <span class="fa fa-minus-square"></span>
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-danger pull-left">{{ _('Unsubscribe') }}</button>
+          </div>
+          {% else %}
+          {{ _('You are not subscribed to any datasets.') }}
+          {% endif %}
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane fade in {% if c.subscription_type == 'group' %}active{% endif %}"
+           id="group-subscriptions">
+        <form id="group-subscription-edit-form" class="dataset-form " method="post"
+              action="{{ h.url_for(controller=ctrl, action='subscription_manage', type='group') }}">
+          <input name="subscription_type" value="group" type="hidden"/>
+          {% if c.group_list|length > 0 %}
+          <table class="table">
+            <colgroup>
+              <col class="col-md-1">
+              <col class="col-md-9">
+              <col class="col-md-2">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>
+                <div class="ui-toggle">
+                  <input class="mark-all" type="checkbox" id="mark_all_groups">
+                  <label class="ui-toggle-icon" for="mark_all_groups"></label>
+                </div>
+              </th>
+              <th>{{ _('Group Name') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for g in c.group_list %}
+            <tr>
+              <td>
+                <div class="ui-toggle">
+                  <input type="checkbox" id="{{ g.id }}" name="group" value="{{ g.id }}">
+                  <label class="ui-toggle-icon" for="{{ g.id }}"></label>
+                </div>
+              </td>
+              <td><label for="{{ g.id }}">{{ g.title }}</label></td>
+              <td class="text-right">
+                <ul class="list-inline">
+                  <li>
+                    <a href="{{ h.url_for(controller='group', action='read', id=g.name) }}"
+                       class="btn btn-info" title="{{ _('Open') }}">
+                      {# Should link to the group page #}
+                      <span class="fa fa-folder-open"></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ h.url_for(controller=ctrl, action='subscription_delete', type='group', id=g.id) }}"
+                       class="btn btn-danger" title="{{ _('Unsubscribe') }}">
+                      <span class="fa fa-minus-square"></span>
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-danger pull-left">{{ _('Unsubscribe') }}</button>
+          </div>
+          {% else %}
+          {{ _('You are not subscribed to any groups.') }}
+          {% endif %}
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane fade in {% if c.subscription_type == 'user' %}active{% endif %}"
+           id="user-subscriptions">
+        <form id="user-subscription-edit-form" class="dataset-form " method="post"
+              action="{{ h.url_for(controller=ctrl, action='subscription_manage', type='user') }}">
+          <input name="subscription_type" value="user" type="hidden"/>
+          {% if c.user_list|length > 0 %}
+          <table class="table">
+            <colgroup>
+              <col class="col-md-1">
+              <col class="col-md-9">
+              <col class="col-md-2">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>
+                <div class="ui-toggle">
+                  <input class="mark-all" type="checkbox" id="mark_all_users">
+                  <label class="ui-toggle-icon" for="mark_all_users"></label>
+                </div>
+              </th>
+              <th>{{ _('User Name') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for u in c.user_list %}
+            <tr>
+              <td>
+                <div class="ui-toggle">
+                  <input type="checkbox" id="{{ u.id }}" name="user" value="{{ u.id }}">
+                  <label class="ui-toggle-icon" for="{{ u.id }}"></label>
+                </div>
+              </td>
+              <td><label for="{{ u.id }}">{{ u.display_name }}</label></td>
+              <td class="text-right">
+                <ul class="list-inline">
+                  <li>
+                    <a href="{{ h.url_for(controller='user', action='read', id=u.name) }}"
+                       class="btn btn-info" title="{{ _('Open') }}">
+                      {# Should link to the user profile page #}
+                      <span class="fa fa-user"></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ h.url_for(controller=ctrl, action='subscription_delete', type='user', id=u.id) }}"
+                       class="btn btn-danger" title="{{ _('Unsubscribe') }}">
+                      <span class="fa fa-minus-square"></span>
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-danger pull-left">{{ _('Unsubscribe') }}</button>
+          </div>
+          {% else %}
+          {{ _('You are not following any users.') }}
+          {% endif %}
+        </form>
+      </div>
+    </div>
+
+  </div>
+  {% if not subscriptions %}
+  <div role="tabpanel" class="tab-pane" id="password">
+    <form class="dataset-form" method="post" action="{{ action }}#password">
+      <fieldset>
+        {{ form.input('old_password',
+        type='password',
+        label=_('Current Password'),
+        id='field-password',
+        value=data.oldpassword,
+        error=errors.oldpassword,
+        classes=['control-medium'],
+        attrs={'autocomplete': 'off', 'required': 'true'}
+        ) }}
+        {{ form.input('password1', type='password', label=_('New Password'), id='field-password', value=data.password1, error=errors.password1, classes=['control-medium'], attrs={'autocomplete': 'off'} ) }}
+        {{ form.input('password2', type='password', label=_('Confirm New Password'), id='field-password-confirm', value=data.password2, error=errors.password2, classes=['control-medium'], attrs={'autocomplete': 'off'}) }}
+        <div><i class="fa fa-info-circle"></i> {{ _('Password must consist of at least 8 characters and at least three of following four character \
+                     types: Uppercase letter, Lowercase letter, Number, Special characters: !, @, #, $, %, ^, &, *.') }}</div>
+      </fieldset>
+      <input type="hidden" name="email" value="{{ data.email }}"/>
+      <input type="hidden" name="name" value="{{ data.name }}"/>
+      <input type="hidden" name="save" value="true"/>
+      <div class="form-actions">
+        {% block update_password_button %}
+        <button class="btn btn-primary" type="submit">
+          {% block update_password_button_text %}{{ _('Update') }}{% endblock %}</button>
+        {% endblock %}
+      </div>
+    </form>
+  </div>
+  {% endif %}
+  <div role="tabpanel" class="tab-pane" id="news">
+    <form class="user-edit-form dataset-form">
+      <table class="table">
+        <colgroup>
+          <col class="col-md-1">
+          <col class="col-md-11">
+        </colgroup>
+        <thead>
+        <tr>
+          <th>
+            <div class="ui-toggle">
+              <input class="mark-all" type="checkbox" id="mark_all_checkbox">
+              <label class="ui-toggle-icon" for="mark_all_checkbox"></label>
+            </div>
+          </th>
+          <th>{{_('News Subscription Options')}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <div class="ui-toggle">
+              <input type="checkbox" id="news_subscription">
+              <label class="ui-toggle-icon" for="news_subscription"></label>
+            </div>
+          </td>
+          <td><label for="news_subscription">{{ _('Subscribe to news') }}</label></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui-toggle">
+              <input type="checkbox" id="news_mail_subscription">
+              <label class="ui-toggle-icon" for="news_mail_subscription"></label>
+            </div>
+          </td>
+          <td><label for="news_mail_subscription">{{ _('Send me e-mail notifications (requires news subscription)') }}</label></td>
+        </tr>
+        </tbody>
+      </table>
+      <p>Read our <a href="https://edstest01.energidataservice.dk/EDS_Privatlivs-og_cookiepolitik.pdf">privacy policy</a> for an overview of how we use your data. By subscriping to e-mail notifications
+you're giving your consent for us to send you notifications via e-mail about site news. This consent can easily be withdrawn by unchecking the box.</p>
+      <div class="form-actions">
+        {% block update_other_settings %}
+        <button class="btn btn-primary" id="update_subscription_button">{% block update_other_settings_button_text %}{{ _('Save') }}{% endblock %}</button>
+        {% endblock %}
+      </div>
+    </form>
+  </div>
+</div>
+
