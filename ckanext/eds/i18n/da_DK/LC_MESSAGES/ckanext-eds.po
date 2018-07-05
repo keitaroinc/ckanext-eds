@@ -368,7 +368,7 @@ msgstr "Søg"
 
 #: ckanext/eds/templates/organization/snippets/helper.html:4
 msgid "What are Organizations?"
-msgstr "Hvad er en organisationer"
+msgstr "Hvad er en organisation"
 
 #: ckanext/eds/templates/organization/snippets/helper.html:8
 msgid ""
