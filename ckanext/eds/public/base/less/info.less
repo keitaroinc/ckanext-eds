@@ -13,10 +13,11 @@
 
   .section-title{
     .text-uppercase;
-    font-weight: 300;
+    font-weight: 700;
     padding-bottom: @grid-gutter-width/2;
     margin-bottom: @grid-gutter-width;
-    border-bottom: 1px solid @color-secondary-03;
+    border-bottom: 1px solid @color-primary-02;
+    color: @color-primary-02;
   }
 }
 
@@ -30,25 +31,15 @@
 
 .info-item-title{
   .h5;
+  .text-uppercase;
 
-  @media (min-width: @screen-md-min){
-    &:first-child{
-      margin-top: 0;
-    }
+  span{
+    color: @color-secondary-05;
   }
 }
 
 .info-item-date{
-  color: @color-secondary-05;
-  font-size: @font-size-small - 1;
-}
-
-.info-item-content{
-  font-size: @font-size-small + 1;
-
-  p{
-    &:last-child{
-      margin-bottom: 0;
-    }
-  }
+  color: @color-primary-01;
+  font-weight: 600;
+  .text-uppercase;
 }

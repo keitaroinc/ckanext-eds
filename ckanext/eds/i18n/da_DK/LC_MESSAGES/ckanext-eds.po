@@ -291,8 +291,8 @@ msgid "There are currently no active news."
 msgstr "Der er p.t. ingen nyheder"
 
 #: ckanext/eds/templates/home/layout1.html:85
-msgid "News Archive"
-msgstr "Nyhedsarkiv"
+msgid "See all news"
+msgstr "Se alle nyheder"
 
 #: ckanext/eds/templates/home/layout1.html:90
 msgid "Calendar"
