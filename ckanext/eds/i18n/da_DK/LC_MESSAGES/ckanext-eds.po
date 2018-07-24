@@ -98,6 +98,10 @@ msgstr "Log ind"
 msgid "Register"
 msgstr "Opret dig som bruger"
 
+#: ckanext/eds/templates/home/layout1.html:13
+msgid "Shortcuts for select energidata"
+msgstr "Genvej til udvalgte energidata"
+
 #: ckanext/eds/templates/header.html:108
 msgid "Search Datasets"
 msgstr "Søg efter datasæt"
