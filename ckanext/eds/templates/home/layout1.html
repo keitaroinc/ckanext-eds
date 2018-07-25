@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4 class="section-title">
-                    <span class="fa-label">{{ _('News') }}</span>
+                    <span>{{ _('News') }}</span>
                 </h4>
                 {% set more_news_url = h.url_for('news_index') %} {% set news_list = h.eds_get_news(limit=2) %} {% if news_list %} {% for
                 news in news_list %} {% set news_url = h.url_for('news_show', id=news.id) %}
@@ -75,27 +75,26 @@
             </div>
             <div class="col-md-6">
                 <h4 class="section-title">
-                    <span class="fa fa-group"></span>
-                    <span class="fa-label">{{_('My Energy Data Service')}}</span>
+                    <span>{{_('My Energy Data Service')}}</span>
                 </h4>
-                <p>{% trans %}As a registered user, you can receive notifications and exchange ideas with anyone who is interested in energy data. Sign in, stay tuned, and bring your input to the Energy Data Service community.{% endtrans %}
+                <p class="list-registration-main">{{_('As a registered user, you can receive notifications and exchange ideas with anyone who is interested in energy data. Sign in, stay tuned, and bring your input to the Energy Data Service community.')}}
                 </p>
                 <ul class="list-unstyled list-registration-benefits">
                     <li>
-                        <span class="fa fa-comment"></span>
-                        <span class="fa-label">{{_('Join the forum associated with the individual datasets')}}</span>
+                        <object class="eds-icon" data="/base/images/svg/voicebox.svg" type="image/svg+xml"> </object>
+                        <span>{{_('Join the forum associated with the individual datasets')}}</span>
                     </li>
                     <li>
-                        <span class="fa fa-feed"></span>
-                        <span class="fa-label">{{_('Follow a dataset, a user or a group and receive a notification of future changes')}}</span>
+                        <object class="eds-icon" data="/base/images/svg/threepeople.svg" type="image/svg+xml"> </object>
+                        <span>{{_('Follow a dataset, a user or a group and receive a notification of future changes')}}</span>
                     </li>
                     <li>
-                        <span class="fa fa-newspaper-o"></span>
-                        <span class="fa-label">{{_('Subscribe to news and events, and get notified when we release new data')}}</span>
+                        <object class="eds-icon" data="/base/images/svg/checkbox.svg" type="image/svg+xml"> </object>
+                        <span>{{_('Subscribe to news and events, and get notified when we release new data')}}</span>
                     </li>
                     <li>
-                        <span class="fa fa-heartbeat"></span>
-                        <span class="fa-label">{{_('Help Energinet to provide better service and support')}}</span>
+                        <object class="eds-icon" data="/base/images/svg/thumbsup.svg" type="image/svg+xml"> </object>
+                        <span>{{_('Help Energinet to provide better service and support')}}</span>
                     </li>
                 </ul>
                 {% if not c.userobj %} {% link_for _('Register'), controller='user', action='register', class_='btn btn-primary' %} {% else
