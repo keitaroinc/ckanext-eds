@@ -3,28 +3,35 @@
   <div class="container">
     {% block footer_content %}
     <div class="row">
-      <div class="col-md-3 col-md-offset-2">
+      <div class="col-md-4">
         <a href="http://energinet.dk/" target="blank"><img class="footer-logo" src="/base/images/energinet-logo.svg" width="160" height="40" alt="Energinet logo"></a>
-        <p><small>&copy; <a href="http://energinet.dk/" target="blank">{{_('Energinet.dk')}}</a></small></p>
+        <p>Energinet har mange energidata og gennem Energi Data Service ønsker vi at stille disse data til rådighed. Portalen vil løbende blive udvidet. Vi håber du kommer med os på rejsen, og vil bidrage med gode råd og feedback</a></p>
       </div>
-      <div class="col-md-3 footer-links">
-        {% block footer_nav %}
-        <h4>{{ _('Data Guide')}}</h4>
-        <ul class="list-footer">
-          {% block dataguide_footer %}
-            {% snippet 'home/snippets/group_item_footer.html' %}
-          {% endblock %}
+      <div class="col-md-4 footer-links footer-border">
+        <h4 class="footer-header">{{ _('Info')}}</h4>
+        <ul class="list-footer-no-bullets">
+<li><a href='&#109;ai&#108;to&#58;ene&#114;&#103;&#105;&#100;ata&#64;en&#37;&#54;&#53;rgi%6Eet&#46;d&#107;'>e&#110;erg&#105;data&#64;e&#110;er&#103;in&#101;t&#46;&#100;k</a></li>
+<li>+45 70 10 22 44</li>
+<li>ENERGINET</li>
+<li>TONNE KJÆRSVEJ 65</li>
+<li>7000 FREDERICIA</li>
+<li>DANMARK</li>
         </ul>
-        {% endblock %}
       </div>
-      <div class="col-md-2 attribution">
+      <div class="col-md-4 attribution">
+	<h4 class="footer-header">Powered by</h4>
         <ul class="list-footer-no-bullets">
           {% block footer_attribution %}
 
-          <li><strong>{% trans %}Powered by{%endtrans %}</strong> <a class="hide-text ckan-footer-logo" target="blank" href="http://ckan.org">{{_('CKAN')}}</a></li>
+          <li><a class="hide-text ckan-footer-logo" target="blank" href="http://ckan.org">{{_('CKAN')}}</a></li>
 
           <li>
             <a href="http://www.opendefinition.org/okd/" target="blank"><img src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}"></a>
+          </li>
+
+          <li>
+            <object class="eds-icon-x2" data="/base/images/svg/gitlab-logo.svg" type="image/svg+xml"></object>
+            <span><a href="https://gitlab.com/energinet/eds" target="blank">Git Repository</a></span>
           </li>
           {% endblock %}
         </ul>

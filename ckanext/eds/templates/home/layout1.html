@@ -27,6 +27,7 @@
     <div class="container">
         <div class="section-wrapper">
             <div class="row">
+                <p class="quick-fact-lead">{{ _('Highlighted data') }}</p>
                 {% set bootstrap_classes = 'col-md-3 col-sm-6' %} {% set resource_view_ids = h.eds_get_quick_facts_views() %} {% set resource_view_ids_length
                 = resource_view_ids|length %} {% for id in resource_view_ids %} {% if resource_view_ids_length == 1 %} {%
                 set bootstrap_classes = 'col-md-8 col-md-offset-2' %} {% elif resource_view_ids_length == 2 %} {% set bootstrap_classes

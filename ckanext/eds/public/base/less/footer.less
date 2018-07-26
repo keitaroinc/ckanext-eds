@@ -9,6 +9,17 @@
   color: @footer-text-color;
 }
 
+.site-footer {
+  .row {
+    margin-left: @grid-gutter-width*-1;
+    margin-right: @grid-gutter-width*-1;
+  }
+  [class^="col-"] {
+    padding-left: @grid-gutter-width;
+    padding-right: @grid-gutter-width;
+  }
+}
+
 .site-footer a {
   color: @footer-link-color;
 }
@@ -17,9 +28,19 @@
   margin-bottom: @grid-gutter-width/6;
 }
 
+.footer-header {
+  .text-uppercase;
+  font-weight: 600;
+}
+
+.footer-border {
+  border-right: 2px solid @color-white;
+  border-left: 2px solid @color-white;
+}
+
 .attribution small {
   color: @footer-text-color;
-  font-size: 12px;
+  font-size: @font-size-small;
 }
 
 .attribution .ckan-footer-logo {
