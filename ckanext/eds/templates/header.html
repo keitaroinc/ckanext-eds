@@ -134,11 +134,27 @@
               {{ h.build_nav_main(
                 ('search', _('Datasets')),
                 ('organizations_index', _('Organizations')),
-                ('group_index', _('Groups')),
-                ('about', _('About'))
+                ('group_index', _('Groups'))
               ) }}
               {% endblock %}
+              {% if request.environ.CKAN_LANG == "da_DK" %}
+{# START OF DIRTY, DIRTY HACK #}
+              <li>
+                <a href="/da_DK/pages/om">Om</a>
+              </li>
+              <li>
+                <a href="/da_DK/pages/vejledninger">Vejledninger</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="/en/pages/about">About</a>
+              </li>
+              <li>
+                <a href="/en/pages/guides">Guides</a>
+              </li>
+              {% endif %}
             </ul>
+{# END OF DIRTY, DIRTY HACK #}
           </nav>
           {% endblock %}
 

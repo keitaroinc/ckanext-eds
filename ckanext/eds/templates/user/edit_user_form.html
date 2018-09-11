@@ -376,7 +376,7 @@
         </tr>
         </tbody>
       </table>
-      <p>Read our <a href="https://edstest01.energidataservice.dk/EDS_Privatlivs-og_cookiepolitik.pdf">privacy policy</a> for an overview of how we use your data. By subscriping to e-mail notifications
+      <p>Read our <a href={% if request.environ.CKAN_LANG == "da_DK" %}"/da_DK/pages/privatlivs-og-cookie-politik" {% else %}"/en/pages/privacy-and-cookie-policy"{% endif %}>privacy policy</a> for an overview of how we use your data. By subscriping to e-mail notifications
 you're giving your consent for us to send you notifications via e-mail about site news. This consent can easily be withdrawn by unchecking the box.</p>
       <div class="form-actions">
         {% block update_other_settings %}
