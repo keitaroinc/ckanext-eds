@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added an SVG version of all dataguide icons, with a fill of #ffffff instead of #008b8b. Simply
 the URL of the groups image to the new SVG in the administrative page for each group.
+- Added dirty hack for simple dual language links
+
+### Fixed
+- Fixed image size in CKAN pages
+
 
 ## 1.2.1 - 2017-06-20
 
