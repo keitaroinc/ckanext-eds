@@ -38,3 +38,10 @@ def activity_create(context, data_dict):
     if success:
         return { 'success': True }
     return {'success': False}
+
+def purge_revisions_eds(context, data_dict):
+    '''
+        Authorization check for deleting revisions
+    '''
+    # sysadmins only
+    return {'success': False}

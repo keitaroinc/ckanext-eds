@@ -102,3 +102,80 @@ def user_roles_get(context, data_dict):
     out = table_dictize(user_role, context)
 
     return out
+
+
+import vdm.sqlalchemy
+from vdm.sqlalchemy.base import SQLAlchemySession
+
+from datetime import datetime, timedelta
+
+import ckan.lib.base as base
+import ckan.model as model
+import ckan.model.meta as meta
+from ckan.model.package import Package
+from ckan.model.tag import PackageTag
+from ckan.model.resource import Resource
+from ckan.model.package_extra import PackageExtra
+from ckan.model.group import (
+    Member,
+    Group
+)
+from ckan.model.system_info import SystemInfo
+
+_ = base._
+
+
+class RepositoryEds(vdm.sqlalchemy.Repository):
+
+    def purge_revision(self, revision, leave_record=False):
+        '''Purge all revisions.'''
+
+        SQLAlchemySession.setattr(self.session, 'revisioning_disabled', True)
+        self.session.autoflush = False
+        for o in self.versioned_objects:
+            revobj = o.__revision_class__
+            items = self.session.query(revobj). \
+                filter_by(revision=revision).all()
+            for item in items:
+                self.session.delete(item)
+        if leave_record:
+            revision.message = u'PURGED: %s' % datetime.now()
+        else:
+            self.session.delete(revision)
+        self.commit_and_remove()
+
+
+repo_eds = RepositoryEds(meta.metadata, meta.Session,
+                  versioned_objects=[Package, PackageTag, Resource,
+                                     PackageExtra, Member,
+                                     Group, SystemInfo]
+                  )
+
+
+def purge_revisions_eds(context, data_dict):
+
+    l.check_access('purge_revisions_eds', context, data_dict)
+
+    days = data_dict.get('days', 100)
+    d = datetime.today() - timedelta(days=days)
+
+    active_revisions = model.Session.query(
+        model.Revision).filter_by(state=model.State.ACTIVE).\
+        filter(model.Revision.timestamp < d)
+
+    revs_to_purge = [rev.id for rev in active_revisions]
+    revs_to_purge = list(set(revs_to_purge))
+
+    for id in revs_to_purge:
+        revision = model.Session.query(model.Revision).get(id)
+        try:
+            # TODO deleting the head revision corrupts the edit
+            # page Ensure that whatever 'head' pointer is used
+            # gets moved down to the next revision
+            repo_eds.purge_revision(revision, leave_record=False)
+
+        except Exception, inst:
+            msg = _('Problem purging revision %s: %s') % (id, inst)
+            log.error(msg)
+        log.info(_('Purge complete'))
+    return len(revs_to_purge)
