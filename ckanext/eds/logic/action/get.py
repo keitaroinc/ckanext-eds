@@ -158,6 +158,7 @@ def purge_revisions_eds(context, data_dict):
 
     days = data_dict.get('days', 100)
     d = datetime.today() - timedelta(days=days)
+    deleted_revisions = 0
 
     active_revisions = model.Session.query(
         model.Revision).filter_by(state=model.State.ACTIVE).\
@@ -173,9 +174,14 @@ def purge_revisions_eds(context, data_dict):
             # page Ensure that whatever 'head' pointer is used
             # gets moved down to the next revision
             repo_eds.purge_revision(revision, leave_record=False)
+            deleted_revisions += 1
 
         except Exception, inst:
             msg = _('Problem purging revision %s: %s') % (id, inst)
             log.error(msg)
         log.info(_('Purge complete'))
-    return len(revs_to_purge)
+    result = {
+        'revisions_to delete': len(revs_to_purge),
+        'deleted_revisions': deleted_revisions
+    }
+    return result
