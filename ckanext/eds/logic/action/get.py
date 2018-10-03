@@ -1,8 +1,11 @@
 import logging
+from datetime import datetime, timedelta
 
 import ckan.plugins as p
 import ckan.logic as l
 import ckan.plugins.toolkit as t
+import ckan.model as model
+import ckan.lib.base as base
 from ckanext.eds.helpers import _get_action
 import ckan.lib.navl.dictization_functions as df
 from ckanext.eds.model.user_extra import UserExtra
@@ -10,7 +13,9 @@ from ckanext.eds.model.user_roles import UserRoles
 from ckanext.eds.logic.schema import user_extra_delete_schema
 from ckanext.eds.logic.schema import user_roles_delete_schema
 from ckanext.eds.logic.dictization import table_dictize
+import ckanext.eds.model as eds_model
 
+_ = base._
 log = logging.getLogger(__name__)
 
 
@@ -103,55 +108,6 @@ def user_roles_get(context, data_dict):
 
     return out
 
-
-import vdm.sqlalchemy
-from vdm.sqlalchemy.base import SQLAlchemySession
-
-from datetime import datetime, timedelta
-
-import ckan.lib.base as base
-import ckan.model as model
-import ckan.model.meta as meta
-from ckan.model.package import Package
-from ckan.model.tag import PackageTag
-from ckan.model.resource import Resource
-from ckan.model.package_extra import PackageExtra
-from ckan.model.group import (
-    Member,
-    Group
-)
-from ckan.model.system_info import SystemInfo
-
-_ = base._
-
-
-class RepositoryEds(vdm.sqlalchemy.Repository):
-
-    def purge_revision(self, revision, leave_record=False):
-        '''Purge all revisions.'''
-
-        SQLAlchemySession.setattr(self.session, 'revisioning_disabled', True)
-        self.session.autoflush = False
-        for o in self.versioned_objects:
-            revobj = o.__revision_class__
-            items = self.session.query(revobj). \
-                filter_by(revision=revision).all()
-            for item in items:
-                self.session.delete(item)
-        if leave_record:
-            revision.message = u'PURGED: %s' % datetime.now()
-        else:
-            self.session.delete(revision)
-        self.commit_and_remove()
-
-
-repo_eds = RepositoryEds(meta.metadata, meta.Session,
-                  versioned_objects=[Package, PackageTag, Resource,
-                                     PackageExtra, Member,
-                                     Group, SystemInfo]
-                  )
-
-
 def purge_revisions_eds(context, data_dict):
 
     l.check_access('purge_revisions_eds', context, data_dict)
@@ -173,7 +129,7 @@ def purge_revisions_eds(context, data_dict):
             # TODO deleting the head revision corrupts the edit
             # page Ensure that whatever 'head' pointer is used
             # gets moved down to the next revision
-            repo_eds.purge_revision(revision, leave_record=False)
+            eds_model.repo_eds.purge_revision(revision, leave_record=False)
             deleted_revisions += 1
 
         except Exception, inst:
