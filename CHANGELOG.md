@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## 1.2.3
+
+### Added
+- Created an API 'purge_revisions_eds' for deleting old revisions. 
+It accepts 'days' parameter to specify to delete revisions older than that number of days.   
+
+
+## 1.2.2
+
 ### Added
 - Added an SVG version of all dataguide icons, with a fill of #ffffff instead of #008b8b. Simply
 the URL of the groups image to the new SVG in the administrative page for each group.
