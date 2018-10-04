@@ -118,6 +118,7 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
             'user_extra': auth.user_extra,
             'user_roles': auth.user_roles,
             'activity_create': auth.activity_create,
+            'purge_revisions_eds': auth.purge_revisions_eds,
         }
 
 

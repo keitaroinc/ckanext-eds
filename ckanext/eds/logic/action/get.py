@@ -1,8 +1,11 @@
 import logging
+from datetime import datetime, timedelta
 
 import ckan.plugins as p
 import ckan.logic as l
 import ckan.plugins.toolkit as t
+import ckan.model as model
+import ckan.lib.base as base
 from ckanext.eds.helpers import _get_action
 import ckan.lib.navl.dictization_functions as df
 from ckanext.eds.model.user_extra import UserExtra
@@ -10,7 +13,9 @@ from ckanext.eds.model.user_roles import UserRoles
 from ckanext.eds.logic.schema import user_extra_delete_schema
 from ckanext.eds.logic.schema import user_roles_delete_schema
 from ckanext.eds.logic.dictization import table_dictize
+import ckanext.eds.model as eds_model
 
+_ = base._
 log = logging.getLogger(__name__)
 
 
@@ -102,3 +107,37 @@ def user_roles_get(context, data_dict):
     out = table_dictize(user_role, context)
 
     return out
+
+def purge_revisions_eds(context, data_dict):
+
+    l.check_access('purge_revisions_eds', context, data_dict)
+
+    days = data_dict.get('days', 100)
+    d = datetime.today() - timedelta(days=days)
+    deleted_revisions = 0
+
+    active_revisions = model.Session.query(
+        model.Revision).filter_by(state=model.State.ACTIVE).\
+        filter(model.Revision.timestamp < d)
+
+    revs_to_purge = [rev.id for rev in active_revisions]
+    revs_to_purge = list(set(revs_to_purge))
+
+    for id in revs_to_purge:
+        revision = model.Session.query(model.Revision).get(id)
+        try:
+            # TODO deleting the head revision corrupts the edit
+            # page Ensure that whatever 'head' pointer is used
+            # gets moved down to the next revision
+            eds_model.repo_eds.purge_revision(revision, leave_record=False)
+            deleted_revisions += 1
+
+        except Exception, inst:
+            msg = _('Problem purging revision %s: %s') % (id, inst)
+            log.error(msg)
+        log.info(_('Purge complete'))
+    result = {
+        'revisions_to delete': len(revs_to_purge),
+        'deleted_revisions': deleted_revisions
+    }
+    return result
