@@ -30,6 +30,7 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IActions)
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IAuthFunctions, inherit=True)
+    plugins.implements(plugins.IPackageController, inherit=True)
 
 
     # IRoutes
@@ -111,7 +112,7 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         self.startup = False
 
-        # IAuthFunctions
+    # IAuthFunctions
 
     def get_auth_functions(self):
         return {
@@ -120,6 +121,13 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
             'activity_create': auth.activity_create,
             'purge_revisions_eds': auth.purge_revisions_eds,
         }
+
+    # IPackageController
+
+    def before_search(self, data_dict):
+        if not data_dict.get('sort'):
+            data_dict['sort'] = 'title_string asc'
+        return data_dict
 
 
 def _setup_licenses():
