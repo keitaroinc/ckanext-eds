@@ -36,16 +36,23 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
     # IRoutes
 
     def before_map(self, map):
-        ctrl = 'ckanext.eds.controllers.eds_controller:EdsController'
+
+        eds_ctrl = 'ckanext.eds.controllers.eds_controller:EdsController'
 
         map.connect('eds_quick_facts', '/quick-facts',
-                    action='quick_facts', ckan_icon='pie-chart', controller=ctrl)
+                    action='quick_facts', controller=eds_ctrl)
 
-        ctrl = 'ckanext.eds.controllers.subscriptions:SubscriptionController'
+        guides_ctrl = 'ckanext.eds.controllers.eds_guides_controller:EdsGuidesController'
+        map.connect('eds_api_guides', '/api-guides',
+                    action='api_guides', controller=guides_ctrl)
+        map.connect('eds_api_guides_edit', '/api-guides/edit',
+                    action='api_guides_edit', controller=guides_ctrl)
+
+        subscriptions_ctrl = 'ckanext.eds.controllers.subscriptions:SubscriptionController'
         map.connect('subscription_manage', '/subscription/{type}/manage',
-                    action='subscription_manage', ckan_icon='pie-chart', controller=ctrl)
+                    action='subscription_manage', ckan_icon='pie-chart', controller=subscriptions_ctrl)
         map.connect('subscription_delete', '/subscription/{type}/{id}/delete',
-                    action='subscription_delete', ckan_icon='pie-chart', controller=ctrl)
+                    action='subscription_delete', ckan_icon='pie-chart', controller=subscriptions_ctrl)
         map.connect('request_reset', '/user/reset', controller=CTRL, action='request_reset')
 
         return map
@@ -72,7 +79,8 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
                                'ckan.site_description_{0}'.format(l): [ignore_missing, unicode],
                                'ckan.site_about_{0}'.format(l): [ignore_missing, unicode],
                                'ckan.site_title_{0}'.format(l): [ignore_missing, unicode],
-                               'ckan.cookie_notice_content_{0}'.format(l): [ignore_missing, unicode]})
+                               'ckan.cookie_notice_content_{0}'.format(l): [ignore_missing, unicode],
+                               'api_guide_content_{0}'.format(l): [ignore_missing, unicode]})
 
         schema.update(charts)
 
@@ -119,7 +127,7 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
             'user_extra': auth.user_extra,
             'user_roles': auth.user_roles,
             'activity_create': auth.activity_create,
-            'purge_revisions_eds': auth.purge_revisions_eds,
+            'purge_revisions_eds': auth.purge_revisions_eds
         }
 
     # IPackageController

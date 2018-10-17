@@ -1,0 +1,49 @@
+{% extends 'page.html' %}
+
+{% block toolbar %}
+{{ super() }}
+{% endblock %}
+
+{% block flash %}
+{{ super() }}
+{% endblock %}
+
+{% set controller = 'ckanext.eds.controllers.eds_guides_controller:EdsGuidesController' %}
+{% set current_lang = request.environ.CKAN_LANG %}
+
+{% set api_guide_content_name =  ['api_guide_content_', current_lang]|join('') %}
+
+{% block breadcrumb_content %}
+<li class="active">{{ h.nav_link(_('Api Guides'), controller=controller, action='api_guides') }}</li>
+{% endblock %}
+
+{% block primary_content %}
+<div class="module">
+    <div class="module-content">
+        {% if h.check_access('sysadmin', {}) %}
+        {% link_for _('Edit'), controller=controller, action='api_guides_edit', class_='btn btn-primary pull-right', icon='edit' %}
+        {% endif %}
+
+        {% if data[api_guide_content_name] %}
+          {{ h.render_markdown(data[api_guide_content_name]) }}
+        {% else %}
+          <div class="module-content">
+              {{data}}
+            <p>{{ _('Guide not created.') }}</p>
+          </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block secondary_content %}
+<div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+        <span class="fa fa-newspaper-o"></span>
+        <span class="fa-label">{{ _('Api Guides') }}</span>
+    </h2>
+    <div class="module-content">
+        <p>{% snippet 'guides/snippets/sidebar_description.html' %}</p>
+    </div>
+</div>
+{% endblock %}

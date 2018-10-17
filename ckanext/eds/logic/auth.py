@@ -45,3 +45,4 @@ def purge_revisions_eds(context, data_dict):
     '''
     # sysadmins only
     return {'success': False}
+
