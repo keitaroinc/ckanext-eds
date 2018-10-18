@@ -11,21 +11,21 @@
 {% set controller = 'ckanext.eds.controllers.eds_guides_controller:EdsGuidesController' %}
 {% set current_lang = request.environ.CKAN_LANG %}
 
-{% set api_guides_content_name =  ['api_guides_content_', current_lang]|join('') %}
+{% set simple_guides_content_name =  ['simple_guides_content_', current_lang]|join('') %}
 
 {% block breadcrumb_content %}
-<li class="active">{{ h.nav_link(_('Api Guides'), controller=controller, action='api_guides') }}</li>
+<li class="active">{{ h.nav_link(_('Simple Guides'), controller=controller, action='simple_guides') }}</li>
 {% endblock %}
 
 {% block primary_content %}
 <div class="module">
     <div class="module-content">
         {% if h.check_access('sysadmin', {}) %}
-        {% link_for _('Edit'), controller=controller, action='api_guides_edit', class_='btn btn-primary pull-right', icon='edit' %}
+        {% link_for _('Edit'), controller=controller, action='simple_guides_edit', class_='btn btn-primary pull-right', icon='edit' %}
         {% endif %}
 
-        {% if data[api_guides_content_name] %}
-          {{ h.render_markdown(data[api_guides_content_name]) }}
+        {% if data[simple_guides_content_name] %}
+          {{ h.render_markdown(data[simple_guides_content_name]) }}
         {% else %}
           <div class="module-content">
             <p>{{ _('Guide not created.') }}</p>
@@ -39,10 +39,10 @@
 <div class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <span class="fa fa-newspaper-o"></span>
-        <span class="fa-label">{{ _('Api Guides') }}</span>
+        <span class="fa-label">{{ _('Simple Guides') }}</span>
     </h2>
     <div class="module-content">
-        <p>{% snippet 'guides/snippets/api_guides_sidebar_description.html' %}</p>
+        <p>{% snippet 'guides/snippets/simple_guides_sidebar_description.html' %}</p>
     </div>
 </div>
 {% endblock %}

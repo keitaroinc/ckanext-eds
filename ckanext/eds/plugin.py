@@ -48,6 +48,13 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
         map.connect('eds_api_guides_edit', '/api-guides/edit',
                     action='api_guides_edit', controller=guides_ctrl)
 
+        map.connect('eds_simple_guides', '/simple-guides',
+                    action='simple_guides', controller=guides_ctrl)
+        map.connect('eds_simple_guides_edit', '/simple-guides/edit',
+                    action='simple_guides_edit', controller=guides_ctrl)
+
+
+
         subscriptions_ctrl = 'ckanext.eds.controllers.subscriptions:SubscriptionController'
         map.connect('subscription_manage', '/subscription/{type}/manage',
                     action='subscription_manage', ckan_icon='pie-chart', controller=subscriptions_ctrl)
@@ -80,7 +87,8 @@ class EdsPlugin(plugins.SingletonPlugin, DefaultTranslation):
                                'ckan.site_about_{0}'.format(l): [ignore_missing, unicode],
                                'ckan.site_title_{0}'.format(l): [ignore_missing, unicode],
                                'ckan.cookie_notice_content_{0}'.format(l): [ignore_missing, unicode],
-                               'api_guide_content_{0}'.format(l): [ignore_missing, unicode]})
+                               'api_guides_content_{0}'.format(l): [ignore_missing, unicode],
+                               'simple_guides_content_{0}'.format(l): [ignore_missing, unicode]})
 
         schema.update(charts)
 

@@ -38,7 +38,7 @@ class EdsGuidesController(base.BaseController):
 
         data = {}
         for l in ['en', 'da_DK']:
-            key = 'api_guide_content_{0}'.format(l)
+            key = 'api_guides_content_{0}'.format(l)
             data[key] = config.get(key)
 
         vars = {'data': data, 'errors': {}}
@@ -76,10 +76,60 @@ class EdsGuidesController(base.BaseController):
 
         data = {}
         for l in ['en', 'da_DK']:
-            key = 'api_guide_content_{0}'.format(l)
+            key = 'api_guides_content_{0}'.format(l)
             data[key] = config.get(key)
 
         vars = {'data': data, 'errors': {}}
-        print data['api_guide_content_en']
+
         return base.render('guides/api_guides_form.html',
+                           extra_vars=vars)
+
+    def simple_guides(self):
+
+        data = {}
+        for l in ['en', 'da_DK']:
+            key = 'simple_guides_content_{0}'.format(l)
+            data[key] = config.get(key)
+
+        vars = {'data': data, 'errors': {}}
+        return base.render('guides/simple_guides.html',
+                           extra_vars=vars)
+
+    def simple_guides_edit(self):
+
+        context = _get_context()
+        try:
+            check_access('sysadmin', context)
+        except NotAuthorized:
+            abort(403, _('Not authorized to see this page'))
+
+        data = request.POST
+        if 'save' in data:
+            try:
+                data_dict = dict(request.POST)
+
+                del data_dict['save']
+                log.debug(data_dict)
+
+                data = logic.get_action('config_option_update')(
+                    {'user': c.user}, data_dict)
+
+            except logic.ValidationError, e:
+                log.debug(e)
+                errors = e.error_dict
+                error_summary = e.error_summary
+                vars = {'data': data, 'errors': errors,
+                        'error_summary': error_summary}
+                return base.render('guides/simple_guides_form.html', extra_vars=vars)
+
+            h.redirect_to(controller=self.ctrl, action='simple_guides')
+
+        data = {}
+        for l in ['en', 'da_DK']:
+            key = 'simple_guides_content_{0}'.format(l)
+            data[key] = config.get(key)
+
+        vars = {'data': data, 'errors': {}}
+
+        return base.render('guides/simple_guides_form.html',
                            extra_vars=vars)

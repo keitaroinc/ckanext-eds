@@ -10,13 +10,13 @@
 {% endblock %}
 
 {% set controller = 'ckanext.eds.controllers.eds_guides_controller:EdsGuidesController' %}
-{% set cancel_url = h.url_for('eds_api_guides') %}
-{% set action_url = h.url_for('eds_api_guides_edit') %}
+{% set cancel_url = h.url_for('eds_simple_guides') %}
+{% set action_url = h.url_for('eds_simple_guides_edit') %}
 {% set current_lang = request.environ.CKAN_LANG %}
 
 {% block breadcrumb_content %}
-<li>{{ h.nav_link(_('Api Guides'), controller=controller, action='api_guides') }}</li>
-<li class="active">{{ h.nav_link(_('Edit'), controller=controller, action='api_guides_edit') }}</li>
+<li>{{ h.nav_link(_('Simple Guides'), controller=controller, action='simple_guides') }}</li>
+<li class="active">{{ h.nav_link(_('Edit'), controller=controller, action='simple_guides_edit') }}</li>
 {% endblock %}
 
 {% block primary_content %}
@@ -25,9 +25,10 @@
 
         <form id="api_guides_update_form" method="post" action="{{ action_url }}">
 
-            {% set api_guides_content_name =  ['api_guides_content_', current_lang]|join('') %}
 
-            {{ form.markdown(api_guides_content_name, id=api_guides_content_name, label=_('Api guide page content'), value=data[api_guides_content_name], error=errors[api_guides_content_name]) }}
+            {% set simple_guides_content_name =  ['simple_guides_content_', current_lang]|join('') %}
+
+            {{ form.markdown(simple_guides_content_name, id=simple_guides_content_name, label=_('Simple guides page content'), value=data[simple_guides_content_name], error=errors[simple_guides_content_name]) }}
 
             <div class="form-actions">
                 <a class="btn pull-left btn-danger" href="{{ cancel_url }}">{{ _('Cancel') }}</a>
@@ -43,10 +44,10 @@
 <div class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <span class="fa fa-newspaper-o"></span>
-        <span class="fa-label">{{ _('Api Guides') }}</span>
+        <span class="fa-label">{{ _('Simple Guides') }}</span>
     </h2>
     <div class="module-content">
-        <p>{% snippet 'guides/snippets/api_guides_sidebar_description.html' %}</p>
+        <p>{% snippet 'guides/snippets/simple_guides_sidebar_description.html' %}</p>
     </div>
 </div>
 {% endblock %}
