@@ -128,6 +128,9 @@
         <div class="navbar-collapse collapse">
 
           {% block header_site_navigation %}
+          {% set controller = 'ckanext.eds.controllers.eds_guides_controller:EdsGuidesController' %}
+          {% set api_guides_url = h.url_for('eds_api_guides') %}
+          {% set simple_guides_url = h.url_for('eds_simple_guides') %}
           <nav class="navigation">
             <ul class="nav navbar-nav nav-pills">
               {% block header_site_navigation_tabs %}
@@ -135,11 +138,20 @@
                 ('search', _('Datasets')),
                 ('organizations_index', _('Organizations')),
                 ('group_index', _('Groups')),
-                ('about', _('About')),
-                ('eds_api_guides', _('Api Guides')),
-                ('eds_simple_guides', _('Simple Guides'))
+                ('about', _('About'))
               ) }}
               {% endblock %}
+              <li>
+                <a href="" data-toggle="dropdown" >{{ _('Guides') }}<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{{ api_guides_url }}">{{ _('API Guides') }}</a>
+                  </li>
+                  <li>
+                    <a href="{{ simple_guides_url }}">{{ _('Simple Guides') }}</a>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </nav>
           {% endblock %}

@@ -15,7 +15,7 @@
 {% set current_lang = request.environ.CKAN_LANG %}
 
 {% block breadcrumb_content %}
-<li>{{ h.nav_link(_('Api Guides'), controller=controller, action='api_guides') }}</li>
+<li>{{ h.nav_link(_('API Guides'), controller=controller, action='api_guides') }}</li>
 <li class="active">{{ h.nav_link(_('Edit'), controller=controller, action='api_guides_edit') }}</li>
 {% endblock %}
 
@@ -27,7 +27,7 @@
 
             {% set api_guides_content_name =  ['api_guides_content_', current_lang]|join('') %}
 
-            {{ form.markdown(api_guides_content_name, id=api_guides_content_name, label=_('Api guide page content'), value=data[api_guides_content_name], error=errors[api_guides_content_name]) }}
+            {{ form.markdown(api_guides_content_name, id=api_guides_content_name, label=_('API guide page content'), value=data[api_guides_content_name], error=errors[api_guides_content_name]) }}
 
             <div class="form-actions">
                 <a class="btn pull-left btn-danger" href="{{ cancel_url }}">{{ _('Cancel') }}</a>
@@ -43,7 +43,7 @@
 <div class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <span class="fa fa-newspaper-o"></span>
-        <span class="fa-label">{{ _('Api Guides') }}</span>
+        <span class="fa-label">{{ _('API Guides') }}</span>
     </h2>
     <div class="module-content">
         <p>{% snippet 'guides/snippets/api_guides_sidebar_description.html' %}</p>

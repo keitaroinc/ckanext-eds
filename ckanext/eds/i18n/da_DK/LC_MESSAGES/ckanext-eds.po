@@ -709,3 +709,12 @@ msgstr "Registrere dig og få følgende fordele: Deltag i diskussioner med andre
 #: ckanext/eds/templates/user/new_user_form.html:14
 msgid "I give my consent that my data may be used in accordance with the privacy policy"
 msgstr "Jeg giver mit samtykke til at min data må bruges i henhold til privatlivs politiken"
+
+msgid "Guides"
+msgstr "Vejledninger"
+
+msgid "API Guides"
+msgstr "API vejledninger"
+
+msgid "Simple Guides"
+msgstr "Simple vejledninger"

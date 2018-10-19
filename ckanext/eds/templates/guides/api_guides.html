@@ -14,7 +14,7 @@
 {% set api_guides_content_name =  ['api_guides_content_', current_lang]|join('') %}
 
 {% block breadcrumb_content %}
-<li class="active">{{ h.nav_link(_('Api Guides'), controller=controller, action='api_guides') }}</li>
+<li class="active">{{ h.nav_link(_('API Guides'), controller=controller, action='api_guides') }}</li>
 {% endblock %}
 
 {% block primary_content %}
@@ -39,7 +39,7 @@
 <div class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <span class="fa fa-newspaper-o"></span>
-        <span class="fa-label">{{ _('Api Guides') }}</span>
+        <span class="fa-label">{{ _('API Guides') }}</span>
     </h2>
     <div class="module-content">
         <p>{% snippet 'guides/snippets/api_guides_sidebar_description.html' %}</p>
