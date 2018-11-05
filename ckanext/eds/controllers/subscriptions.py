@@ -45,12 +45,26 @@ class SubscriptionController(UserController):
         action(context, {'id': id})
 
         h.flash_success(_('Successfully unsubscribed from the selected {0}!'.format(type)))
-        base.redirect(h.url_for(controller=CTRL, action='subscription_manage', type=type))
+        h.redirect_to(h.url_for(controller=CTRL, action='subscription_manage', type=type))
 
     def subscription_manage(self, type):
         vars = {'data': {}, 'errors': {}, 'error_summary': {}}
-        data_dict = {'id': c.userobj.id}
+
+        if c.userobj:
+            id = c.userobj.id
+        else:
+            abort(400, _('No user specified'))
+
+        data_dict = {'id': id}
         context = self._get_ctx()
+
+        try:
+            user_dict = get_action('user_show')(context, data_dict)
+        except NotFound:
+            h.flash_error(_('Not authorized to see this page'))
+            h.redirect_to(controller='user', action='login')
+        except NotAuthorized:
+            abort(403, _('Not authorized to see this page'))
 
         super(SubscriptionController, self)._setup_template_variables(
             {'model': model,
@@ -64,7 +78,7 @@ class SubscriptionController(UserController):
 
         if type not in SUBSCRIPTION_TYPES:
             h.flash_error(_('Subscription type: {0} is not supported!'.format(type)))
-            base.redirect(h.url_for(controller=CTRL, action='subscription_manage', type='dataset'))
+            h.redirect_to(h.url_for(controller=CTRL, action='subscription_manage', type='dataset'))
 
         if request.POST:
             sub_type = request.POST['subscription_type']
@@ -77,12 +91,12 @@ class SubscriptionController(UserController):
                 map(lambda o: action(context, {'id': o}), objects)
 
                 h.flash_success(_('Successfully unsubscribed from the selected {0}(s)!'.format(_type)))
-                base.redirect(h.url_for(controller=CTRL, action='subscription_manage', type=_type))
+                h.redirect_to(h.url_for(controller=CTRL, action='subscription_manage', type=_type))
 
         c.subscription_type = type
         c.user_list = logic.get_action('user_followee_list')(context, data_dict)
         c.group_list = logic.get_action('group_followee_list')(context, data_dict)
         c.dataset_list = logic.get_action('dataset_followee_list')(context, data_dict)
-        c.form = render(super(SubscriptionController, self).edit_user_form, extra_vars=vars)
+        form = render(super(SubscriptionController, self).edit_user_form, extra_vars=vars)
 
-        return render('user/edit.html')
+        return render('user/edit.html', extra_vars={'user_dict': user_dict, 'form': form})
