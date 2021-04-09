@@ -1,0 +1,6 @@
+ckanext-eds
+Copyright (c) 2018 Keitaro AB
+*************************************************************************
+Third party dependencies included as source files can be found in
+the ckanext-eds/ckanext/eds/public/base/vendor
+directory, along with their copyright headers
